@@ -1,14 +1,14 @@
 export enum ParroquiaSlug {
   todas= "all",
-  sanPablo = "sanPablo",
-  sanJuanPabloII = "sanJuanPabloII",
-  carmenGuzho = "carmenGuzho",
-  quitachica = "quitachica",
-  monay = "monay"
+  sanPablo = "San Pablo",
+  sanJuanPabloII = "San Juan Pablo II",
+  carmenGuzho = "Carmen de Guzho",
+  quitachica = "Quitachica",
+  monay = "Santa Teresa de Monay"
 }
 
 export enum CasasConvivencia {
-  Seminario = "Semoanrio",
+  Seminario = "Seminario",
   CasaBetania = "Casa Betania",
   QuintaLeonor = "Quinta Leonor",
   none = "Ninguno"
@@ -330,10 +330,11 @@ export const allComunidades: Comunidad[] = [
     ],
     solteros: [
       { nombres: "José Santos", observaciones: "Adulto", hospedaje: CasasConvivencia.QuintaLeonor },
-      { nombres: "Julia Amón", observaciones: "Adulto", hospedaje: CasasConvivencia.CasaBetania },
-      { nombres: "David Torres", observaciones: "Adulto", hospedaje: CasasConvivencia.Seminario },
+      { nombres: "David Torres", observaciones: "", hospedaje: CasasConvivencia.Seminario },
     ],
-    solteras: []
+    solteras: [
+      { nombres: "Julia Amón", observaciones: "Adulto", hospedaje: CasasConvivencia.CasaBetania },
+    ]
   },
   {
     parroquia: ParroquiaSlug.monay,

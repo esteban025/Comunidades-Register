@@ -1,7 +1,7 @@
 ---
-import BodyTable from "../components/BodyTable.astro";
+import FootTable from "../components/FootTable.astro";
 import HeadTable from "../components/HeadTable.astro";
-// import FootTable from "../components/FootTable.astro";
+import NewBodyTable from "../components/NewBodyTable.astro";
 import Titles from "../components/Titles.astro";
 import { CasasConvivencia, ParroquiaSlug } from "../lib/allComunidades";
 import { getComunityByLugar } from "../lib/getComunidades.ts";
@@ -17,14 +17,8 @@ comunidades.sort((a, b) => a.numComunidad - b.numComunidad);
   <Titles typeTitle="h2" title="Filters" />
   <table class="table-data">
     <HeadTable typeHead="filters" />
-    <BodyTable filters comunidadesFilters={comunidades} />
-    <!-- <FootTable
-      totals={{
-        totalMatrimonios: comunidades.totalMatrimonios,
-        totalSolteros: comunidades.totalSolteros,
-        totalSolteras: comunidades.totalSolteras,
-        totalHermanos: comunidades.totalHermanos,
-      }}
-    /> -->
+    <!-- <BodyTable filters comunidadesFilters={comunidades} /> -->
+    <NewBodyTable filtersComus={comunidades} />
+    <FootTable totals={comunidades} />
   </table>
 </section>
