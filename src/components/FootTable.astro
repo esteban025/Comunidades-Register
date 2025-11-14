@@ -5,35 +5,79 @@ interface NumbersTotal {
   totalSolteras: number;
   totalHermanos: number;
 }
-const totals = Astro.props.totals as NumbersTotal;
+
+interface TotalsFilters {
+  numComunidad: number;
+  parroquia: string;
+  tipo: string;
+  nombres: string;
+  hospedaje: string;
+}
+
+interface Props {
+  totals?: NumbersTotal;
+  totalsFilters?: TotalsFilters[];
+  sectionFilters?: boolean;
+}
+const { totals, sectionFilters = false, totalsFilters } = Astro.props as Props;
+
+const totalMatrimonios = totalsFilters?.filter(
+  (h) => h.tipo === "matrimonio",
+).length;
+const totalSolteros = totalsFilters?.filter((h) => h.tipo === "soltero").length;
+const totalSolteras = totalsFilters?.filter((h) => h.tipo === "soltera").length;
+const totalHospedados = totalMatrimonios! * 2 + totalSolteros! + totalSolteras!;
 ---
 
-<tfoot>
-  <tr class="subtotal">
-    <td></td>
-    <td>
-      <p>
-        Matrimonios: <span>{totals.totalMatrimonios}</span>
-      </p>
-    </td>
-    <td>
-      <p class="flex items-center gap-5">
-        <span>
-          Solteros: <span>{totals.totalSolteros}</span>
-        </span>
-        <span>
-          Solteras: <span>{totals.totalSolteras}</span>
-        </span>
-      </p>
-    </td>
+{
+  sectionFilters ? (
+    <tfoot>
+      <tr>
+        <td />
+        <td colspan="2">
+          {totalsFilters && `Total de hospedados: ${totalHospedados}`}
+        </td>
+        <td colspan="">
+          {totalsFilters && (
+            <div class="flex items-center gap-4">
+              <p>Matrimonios: {totalMatrimonios}</p>
+              <p>Solteros: {totalSolteros}</p>
+              <p>Solteras: {totalSolteras}</p>
+            </div>
+          )}
+        </td>
+        <td />
+      </tr>
+    </tfoot>
+  ) : (
+    <tfoot>
+      <tr class="subtotal">
+        <td />
+        <td>
+          <p>
+            Matrimonios: <span>{totals?.totalMatrimonios}</span>
+          </p>
+        </td>
+        <td>
+          <p class="flex items-center gap-5">
+            <span>
+              Solteros: <span>{totals?.totalSolteros}</span>
+            </span>
+            <span>
+              Solteras: <span>{totals?.totalSolteras}</span>
+            </span>
+          </p>
+        </td>
 
-    <td colspan="2">
-      <div>
-        <p>Total de hermanos: {totals.totalHermanos}</p>
-      </div>
-    </td>
-  </tr>
-</tfoot>
+        <td colspan="2">
+          <div>
+            <p>Total de hermanos: {totals?.totalHermanos}</p>
+          </div>
+        </td>
+      </tr>
+    </tfoot>
+  )
+}
 
 <style>
   tfoot {

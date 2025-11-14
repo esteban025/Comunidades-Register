@@ -3,21 +3,22 @@ import FootTable from "../components/FootTable.astro";
 import HeadTable from "../components/HeadTable.astro";
 import NewBodyTable from "../components/NewBodyTable.astro";
 import Titles from "../components/Titles.astro";
-import { CasasConvivencia, ParroquiaSlug } from "../lib/allComunidades";
-import { getComunityByLugar } from "../lib/getComunidades.ts";
-const nameParroquia = ParroquiaSlug.sanPablo;
-const comunidades = getComunityByLugar(
-  nameParroquia,
-  CasasConvivencia.Seminario,
-);
+import { CasasConvivencia, ParroquiaSlug } from "../lib/comunidadesData";
+import { getHermanosByHospedaje } from "../lib/comunidadesQueries.ts";
+
+// Cambiar dependiendo la parroquia y el hospedaje que se quiera filtrar
+const nameParroquia = ParroquiaSlug.carmenGuzho;
+const nameHospedaje = CasasConvivencia.CasaBetania;
+
+const comunidades = getHermanosByHospedaje(nameParroquia, nameHospedaje);
 comunidades.sort((a, b) => a.numComunidad - b.numComunidad);
 ---
 
 <section>
-  <Titles typeTitle="h2" title="Filters" />
+  <Titles typeTitle="h2" title={`${nameHospedaje} - ${nameParroquia}`} />
   <table class="table-data">
     <HeadTable typeHead="filters" />
     <NewBodyTable filtersComus={comunidades} />
-    <FootTable totals={comunidades} />
+    <FootTable sectionFilters totalsFilters={comunidades} />
   </table>
 </section>

@@ -3,10 +3,13 @@ import FootTable from "../components/FootTable.astro";
 import HeadTable from "../components/HeadTable.astro";
 import NewBodyTable from "../components/NewBodyTable.astro";
 import Titles from "../components/Titles.astro";
-import { ParroquiaSlug } from "../lib/allComunidades";
-import { getAllHermanos, getCommunity } from "../lib/getComunidades.ts";
+import { ParroquiaSlug } from "../lib/comunidadesData";
+import {
+  getAllHermanos,
+  getComunidadesByParroquia,
+} from "../lib/comunidadesQueries.ts";
 const nameParroquia = ParroquiaSlug.sanJuanPabloII;
-const comunidades = getCommunity(nameParroquia);
+const comunidades = getComunidadesByParroquia(nameParroquia);
 const allHermanosParroquia = getAllHermanos(nameParroquia);
 ---
 

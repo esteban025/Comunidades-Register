@@ -1,3 +1,8 @@
+/**
+ * Datos y tipos de las comunidades
+ * Este archivo contiene todos los datos de las comunidades de las diferentes parroquias
+ */
+
 export enum ParroquiaSlug {
   todas= "all",
   sanPablo = "San Pablo",
@@ -12,7 +17,6 @@ export enum CasasConvivencia {
   CasaBetania = "Casa Betania",
   QuintaLeonor = "Quinta Leonor",
   none = "Ninguno"
-
 } 
 
 interface Comunidad {
@@ -348,5 +352,3 @@ export const allComunidades: Comunidad[] = [
     ]
   },
 ]
-
-
