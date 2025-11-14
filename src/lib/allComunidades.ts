@@ -315,6 +315,17 @@ export const allComunidades = [
     ],
     solteras: []
   },
+  {
+    parroquia: ParroquiaSlug.monay,
+    numComunidad: 2,
+    matrimonios: [
+      { nombres: "Felipe Luna y Diana Torres", observaciones: "Adultos y 1 niña" },
+    ],
+    solteros: [],
+    solteras: [
+      { nombres: "Nube Bustos", observaciones: "1 niño" }
+    ]
+  },
 ]
 
 
