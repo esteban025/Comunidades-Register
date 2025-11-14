@@ -20,7 +20,7 @@ const { typeHead = "general" } = Astro.props;
     <thead>
       <tr>
         {headByCommunity.map((header) => (
-          <th class="bg-sky-600 text-white p-1.5 text-start text-xs font-medium capitalize">
+          <th class="bg-sky-600 text-white p-1.5 text-start text-xs font-medium capitalize truncate">
             {header}
           </th>
         ))}
@@ -30,7 +30,7 @@ const { typeHead = "general" } = Astro.props;
     <thead>
       <tr>
         {headFilters.map((header) => (
-          <th class="bg-sky-600 text-white p-1.5 text-start text-xs font-medium capitalize">
+          <th class="bg-sky-600 text-white p-1.5 text-start text-xs font-medium capitalize truncate">
             {header}
           </th>
         ))}
@@ -40,7 +40,7 @@ const { typeHead = "general" } = Astro.props;
     <thead>
       <tr>
         {headTable.map((header) => (
-          <th class="bg-sky-600 text-white p-1.5 text-start text-xs font-medium capitalize">
+          <th class="bg-sky-600 text-white p-1.5 text-start text-xs font-medium capitalize truncate">
             {header}
           </th>
         ))}
@@ -48,3 +48,11 @@ const { typeHead = "general" } = Astro.props;
     </thead>
   )
 }
+
+<style>
+  @media print {
+    th {
+      padding-block: 3px;
+    }
+  }
+</style>
