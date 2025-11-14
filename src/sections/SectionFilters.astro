@@ -1,17 +1,21 @@
 ---
-import BodyTable from "../components/BodyTable.astro";
-import FootTable from "../components/FootTable.astro";
-import HeadTable from "../components/HeadTable.astro";
+// import BodyTable from "../components/BodyTable.astro";
+// import FootTable from "../components/FootTable.astro";
+// import HeadTable from "../components/HeadTable.astro";
 import Titles from "../components/Titles.astro";
-import { ParroquiaSlug } from "../lib/allComunidades";
-import { getCommunity } from "../lib/getComunidades.ts";
+import { CasasConvivencia, ParroquiaSlug } from "../lib/allComunidades";
+import { getComunityByLugar } from "../lib/getComunidades.ts";
 const nameParroquia = ParroquiaSlug.monay;
-const comunidades = getCommunity(nameParroquia);
+const comunidades = getComunityByLugar(
+  nameParroquia,
+  CasasConvivencia.Seminario,
+);
+console.log(comunidades);
 ---
 
 <section>
   <Titles typeTitle="h2" title="Santa teresa de monay" />
-  <table class="table-data">
+  <!-- <table class="table-data">
     <HeadTable />
     <BodyTable comunidades={comunidades.comunidades} />
     <FootTable
@@ -22,5 +26,5 @@ const comunidades = getCommunity(nameParroquia);
         totalHermanos: comunidades.totalHermanos,
       }}
     />
-  </table>
+  </table> -->
 </section>

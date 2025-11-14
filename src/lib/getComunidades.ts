@@ -22,3 +22,9 @@ export const getCommunity = (parroquia: string) => {
     totalHermanos: comunidades.reduce((acc, curr) => acc + curr.total, 0)
   };
 }
+
+// filtro por lugar de convivencia y por parroquias
+export const getComunityByLugar = (parroquia: string, lugar: string) => {
+  const allComu = getCommunity(parroquia).comunidades;
+  return allComu
+}
