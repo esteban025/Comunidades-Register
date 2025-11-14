@@ -1,0 +1,135 @@
+---
+interface Hermanos {
+  numComunidad: number;
+  tipo: string;
+  nombres: string;
+  observaciones: string;
+  hospedaje: string;
+}
+
+interface ComunidadFilters {
+  numComunidad: number;
+  parroquia: string;
+  tipo: string;
+  nombres: string;
+  hospedaje: string;
+}
+
+interface Props {
+  hermanos?: Hermanos[];
+  filtersComus?: ComunidadFilters[];
+}
+const { hermanos, filtersComus } = Astro.props as Props;
+---
+
+<tbody>
+  {
+    hermanos &&
+      hermanos?.map((hermano) => (
+        <tr>
+          <td class={`td-${hermano.numComunidad}`}>{hermano.numComunidad}</td>
+          <td class={`td${hermano.tipo}-${hermano.numComunidad}`}>
+            {hermano.tipo}
+          </td>
+          <td>{hermano.nombres}</td>
+          <td>{hermano.observaciones}</td>
+          <td>{hermano.hospedaje}</td>
+        </tr>
+      ))
+  }
+  {
+    filtersComus &&
+      filtersComus?.map((hermano) => (
+        <tr>
+          <td class={`td-${hermano.numComunidad}`}>{hermano.numComunidad}</td>
+          <td class={`td${hermano.parroquia}-${hermano.numComunidad}`}>
+            {hermano.parroquia}
+          </td>
+          <td>{hermano.tipo}</td>
+          <td>{hermano.nombres}</td>
+          <td>{hermano.hospedaje}</td>
+        </tr>
+      ))
+  }
+</tbody>
+
+<script>
+  // colapsar las mismas clases td
+  const tds = document.querySelectorAll(
+    'td[class^="td-"]',
+  ) as NodeListOf<HTMLTableCellElement>;
+
+  const tdsType = document.querySelectorAll(
+    'td[class^="tdsoltero-"], td[class^="tdsoltera-"], td[class^="tdmatrimonio-"]',
+  ) as NodeListOf<HTMLTableCellElement>;
+
+  const colapsarTDs = (
+    tds: NodeListOf<HTMLTableCellElement>,
+    tdsType: NodeListOf<HTMLTableCellElement>,
+  ) => {
+    let lastValue = "";
+    let lastTD: HTMLTableCellElement | null = null;
+
+    tds.forEach((td) => {
+      if (td.textContent === lastValue && td.textContent !== "") {
+        if (lastTD) {
+          lastTD.rowSpan = (lastTD.rowSpan || 1) + 1;
+          td.style.display = "none";
+        }
+      } else {
+        lastValue = td.textContent || "";
+        lastTD = td;
+      }
+    });
+
+    let lastTypeValue = "";
+    let lastTypeTD: HTMLTableCellElement | null = null;
+    let lastComunidad = "";
+
+    tdsType.forEach((td) => {
+      const className = td.className;
+      const comunidadNum = className.split("-")[1];
+
+      if (td.textContent === lastTypeValue && comunidadNum === lastComunidad) {
+        if (lastTypeTD) {
+          lastTypeTD.rowSpan = (lastTypeTD.rowSpan || 1) + 1;
+          td.style.display = "none";
+        }
+      } else {
+        lastTypeValue = td.textContent || "";
+        lastComunidad = comunidadNum;
+        lastTypeTD = td;
+      }
+    });
+  };
+  colapsarTDs(tds, tdsType);
+</script>
+
+<style>
+  tbody {
+    & tr {
+      transition: background-color 0.2s;
+
+      & td:first-child,
+      & td:nth-child(5) {
+        text-align: center;
+      }
+    }
+    & tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+
+    & tr:hover {
+      background-color: #f0f0f0;
+    }
+    & td {
+      padding: 4px 6px;
+      border: 1px solid #ddd;
+      /* vertical-align: top; */
+    }
+
+    & tr:last-child td {
+      border-bottom: none;
+    }
+  }
+</style>

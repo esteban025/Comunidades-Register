@@ -9,42 +9,80 @@ interface Comunidad {
     nombres: string;
     observaciones: string;
   }[];
+  hospedaje: {
+    name: string;
+    casa: string;
+  }[];
 }
 
-const comunidades = Astro.props.comunidades as Comunidad[];
+interface ComunidadFilters {
+  numComunidad: number;
+  parroquia: string;
+  tipo: string;
+  nombres: string;
+  hospedaje: string;
+}
+
+interface Props {
+  comunidades?: Comunidad[];
+  comunidadesFilters?: ComunidadFilters[];
+  filters?: boolean;
+}
+
+const {
+  comunidades,
+  comunidadesFilters,
+  filters = false,
+} = Astro.props as Props;
 ---
 
 <tbody>
   {
-    comunidades.map((comunidad) => (
-      <tr>
-        <td>{comunidad.numComunidad}</td>
-        <td>
-          {comunidad.matrimonios.map((nombres) => (
-            <div>- {nombres}</div>
-          ))}
-        </td>
-        <td>
-          {comunidad.solteros.map((nombres) => (
-            <div>- {nombres}</div>
-          ))}
-        </td>
-        <td>
-          {comunidad.solteras.map((nombres) => (
-            <div>- {nombres}</div>
-          ))}
-        </td>
-        <td>{comunidad.total}</td>
-        <td>
-          {comunidad.observaciones.map((obs) => (
-            <div>
-              - {obs.nombres} - {obs.observaciones}
-            </div>
-          ))}
-        </td>
-        <td>{/* lugar de convivencia */}</td>
-      </tr>
-    ))
+    filters
+      ? comunidadesFilters?.map((comunidad) => (
+          <tr>
+            <td>{comunidad.numComunidad}</td>
+            <td>{comunidad.parroquia}</td>
+            <td>{comunidad.tipo}</td>
+            <td>{comunidad.nombres}</td>
+            <td>{comunidad.hospedaje}</td>
+          </tr>
+        ))
+      : comunidades?.map((comu) => (
+          <tr>
+            <td>{comu.numComunidad}</td>
+            <td>
+              {comu.matrimonios.map((name) => (
+                <div>{name}</div>
+              ))}
+            </td>
+            <td>
+              {comu.solteros.map((name) => (
+                <div>{name}</div>
+              ))}
+            </td>
+            <td>
+              {comu.solteras.map((name) => (
+                <div>{name}</div>
+              ))}
+            </td>
+            <td>{comu.total}</td>
+            <td>
+              {comu.observaciones.map((obs) => (
+                <div>
+                  <strong>{obs.nombres}:</strong> {obs.observaciones}
+                </div>
+              ))}
+            </td>
+            <td class="lugar-convivencia">
+              {comu.hospedaje.map((hosp) => (
+                <div>
+                  <strong>{hosp.name}:</strong> {hosp.casa}
+                </div>
+              ))}
+            </td>
+          </tr>
+        ))
   }
 </tbody>
 

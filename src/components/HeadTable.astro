@@ -1,16 +1,9 @@
 ---
 interface Props {
-  typeHead?: "general" | "byCommunity";
+  typeHead?: "general" | "byCommunity" | "filters";
 }
-const headTable = [
-  "N° Com",
-  "Matrimonios",
-  "Solteros",
-  "Solteras",
-  "Total",
-  "Observaciones",
-  "Lugar Conv.",
-];
+const headTable = ["N° Com", "tipo", "nombres", "Observaciones", "Lugar Conv."];
+const headFilters = ["N° Com", "Parroquia", "Tipo", "Nombres", "Hospedaje"];
 
 const headByCommunity = [
   "Matrimonios",
@@ -23,11 +16,21 @@ const { typeHead = "general" } = Astro.props;
 ---
 
 {
-  typeHead === "general" ? (
+  typeHead === "byCommunity" ? (
     <thead>
       <tr>
-        {headTable.map((header) => (
-          <th class="bg-sky-600 text-white p-1.5 text-start text-xs font-medium">
+        {headByCommunity.map((header) => (
+          <th class="bg-sky-600 text-white p-1.5 text-start text-xs font-medium capitalize">
+            {header}
+          </th>
+        ))}
+      </tr>
+    </thead>
+  ) : typeHead === "filters" ? (
+    <thead>
+      <tr>
+        {headFilters.map((header) => (
+          <th class="bg-sky-600 text-white p-1.5 text-start text-xs font-medium capitalize">
             {header}
           </th>
         ))}
@@ -36,8 +39,8 @@ const { typeHead = "general" } = Astro.props;
   ) : (
     <thead>
       <tr>
-        {headByCommunity.map((header) => (
-          <th class="bg-sky-600 text-white p-1.5 text-start text-xs font-medium">
+        {headTable.map((header) => (
+          <th class="bg-sky-600 text-white p-1.5 text-start text-xs font-medium capitalize">
             {header}
           </th>
         ))}
@@ -45,28 +48,3 @@ const { typeHead = "general" } = Astro.props;
     </thead>
   )
 }
-
-<style>
-  th:nth-child(1) {
-    width: 2%;
-  } /* N° Com */
-  th:nth-child(2) {
-    width: 23%;
-  } /* Matrimonios */
-  th:nth-child(3) {
-    width: 18%;
-  } /* Solteros */
-  th:nth-child(4) {
-    width: 18%;
-  } /* Solteras */
-  th:nth-child(5) {
-    width: 2%;
-    /* alianmos al centro */
-  } /* Total */
-  th:nth-child(6) {
-    width: 20%;
-  } /* Observaciones */
-  th:nth-child(7) {
-    width: 20%;
-  } /* Lugar Conv. */
-</style>

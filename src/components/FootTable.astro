@@ -17,21 +17,21 @@ const totals = Astro.props.totals as NumbersTotal;
       </p>
     </td>
     <td>
-      <p>
-        Solteros: <span>{totals.totalSolteros}</span>
+      <p class="flex items-center gap-5">
+        <span>
+          Solteros: <span>{totals.totalSolteros}</span>
+        </span>
+        <span>
+          Solteras: <span>{totals.totalSolteras}</span>
+        </span>
       </p>
     </td>
-    <td>
-      <p>
-        Solteras: <span>{totals.totalSolteras}</span>
-      </p>
-    </td>
+
     <td colspan="2">
       <div>
         <p>Total de hermanos: {totals.totalHermanos}</p>
       </div>
     </td>
-    <td></td>
   </tr>
 </tfoot>
 

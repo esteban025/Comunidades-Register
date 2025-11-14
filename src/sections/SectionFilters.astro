@@ -1,30 +1,30 @@
 ---
-// import BodyTable from "../components/BodyTable.astro";
+import BodyTable from "../components/BodyTable.astro";
+import HeadTable from "../components/HeadTable.astro";
 // import FootTable from "../components/FootTable.astro";
-// import HeadTable from "../components/HeadTable.astro";
 import Titles from "../components/Titles.astro";
 import { CasasConvivencia, ParroquiaSlug } from "../lib/allComunidades";
 import { getComunityByLugar } from "../lib/getComunidades.ts";
-const nameParroquia = ParroquiaSlug.monay;
+const nameParroquia = ParroquiaSlug.todas;
 const comunidades = getComunityByLugar(
   nameParroquia,
-  CasasConvivencia.Seminario,
+  CasasConvivencia.QuintaLeonor,
 );
-console.log(comunidades);
+comunidades.sort((a, b) => a.numComunidad - b.numComunidad);
 ---
 
 <section>
-  <Titles typeTitle="h2" title="Santa teresa de monay" />
-  <!-- <table class="table-data">
-    <HeadTable />
-    <BodyTable comunidades={comunidades.comunidades} />
-    <FootTable
+  <Titles typeTitle="h2" title="Filters" />
+  <table class="table-data">
+    <HeadTable typeHead="filters" />
+    <BodyTable filters comunidadesFilters={comunidades} />
+    <!-- <FootTable
       totals={{
         totalMatrimonios: comunidades.totalMatrimonios,
         totalSolteros: comunidades.totalSolteros,
         totalSolteras: comunidades.totalSolteras,
         totalHermanos: comunidades.totalHermanos,
       }}
-    />
-  </table> -->
+    /> -->
+  </table>
 </section>

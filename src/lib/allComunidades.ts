@@ -1,4 +1,5 @@
 export enum ParroquiaSlug {
+  todas= "all",
   sanPablo = "sanPablo",
   sanJuanPabloII = "sanJuanPabloII",
   carmenGuzho = "carmenGuzho",
