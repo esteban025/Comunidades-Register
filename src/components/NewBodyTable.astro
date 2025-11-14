@@ -69,24 +69,86 @@ const { hermanos, filtersComus } = Astro.props as Props;
 </tbody>
 
 <script>
-  // colapsar las mismas clases td
-  const tds = document.querySelectorAll(
-    'td[class^="td-"]',
-  ) as NodeListOf<HTMLTableCellElement>;
+  // Función para fusionar celdas en tabla de hermanos (por parroquia)
+  const colapsarHermanos = () => {
+    // Fusionar números de comunidad si tienen la misma clase Y son consecutivos
+    const tds = document.querySelectorAll(
+      'td[class^="td-"]:not([data-parroquia])',
+    ) as NodeListOf<HTMLTableCellElement>;
 
-  const tdsType = document.querySelectorAll(
-    'td[class^="tdsoltero-"], td[class^="tdsoltera-"], td[class^="tdmatrimonio-"]',
-  ) as NodeListOf<HTMLTableCellElement>;
+    let lastValue = "";
+    let lastTD: HTMLTableCellElement | null = null;
+    let lastClass = "";
+    let lastRow: HTMLTableRowElement | null = null;
 
-  const tdsParroquia = document.querySelectorAll(
-    'td[class^="tdparroquia-"]',
-  ) as NodeListOf<HTMLTableCellElement>;
+    tds.forEach((td) => {
+      const currentClass = td.className;
+      const currentRow = td.parentElement as HTMLTableRowElement;
 
-  const colapsarTDs = (
-    tds: NodeListOf<HTMLTableCellElement>,
-    tdsType: NodeListOf<HTMLTableCellElement>,
-    tdsParroquia: NodeListOf<HTMLTableCellElement>,
-  ) => {
+      // Verificar si es la fila inmediatamente siguiente
+      const isConsecutive =
+        lastRow && lastRow.nextElementSibling === currentRow;
+
+      if (
+        td.textContent === lastValue &&
+        td.textContent !== "" &&
+        currentClass === lastClass &&
+        isConsecutive
+      ) {
+        if (lastTD) {
+          lastTD.rowSpan = (lastTD.rowSpan || 1) + 1;
+          td.style.display = "none";
+        }
+      } else {
+        lastValue = td.textContent || "";
+        lastClass = currentClass;
+        lastTD = td;
+      }
+      lastRow = currentRow;
+    });
+
+    // Fusionar tipos solo si son del mismo número de comunidad Y consecutivos
+    const tdsType = document.querySelectorAll(
+      'td[class^="tdsoltero-"], td[class^="tdsoltera-"], td[class^="tdmatrimonio-"]',
+    ) as NodeListOf<HTMLTableCellElement>;
+
+    let lastTypeValue = "";
+    let lastTypeTD: HTMLTableCellElement | null = null;
+    let lastComunidad = "";
+    let lastTypeRow: HTMLTableRowElement | null = null;
+
+    tdsType.forEach((td) => {
+      const className = td.className;
+      const comunidadNum = className.split("-")[1];
+      const currentRow = td.parentElement as HTMLTableRowElement;
+      const isConsecutive =
+        lastTypeRow && lastTypeRow.nextElementSibling === currentRow;
+
+      if (
+        td.textContent === lastTypeValue &&
+        comunidadNum === lastComunidad &&
+        isConsecutive
+      ) {
+        if (lastTypeTD) {
+          lastTypeTD.rowSpan = (lastTypeTD.rowSpan || 1) + 1;
+          td.style.display = "none";
+        }
+      } else {
+        lastTypeValue = td.textContent || "";
+        lastComunidad = comunidadNum;
+        lastTypeTD = td;
+      }
+      lastTypeRow = currentRow;
+    });
+  };
+
+  // Función para fusionar celdas en tabla de filtros (con parroquias)
+  const colapsarFilters = () => {
+    // Fusionar números de comunidad solo si son de la misma parroquia
+    const tds = document.querySelectorAll(
+      'td[class^="td-"][data-parroquia]',
+    ) as NodeListOf<HTMLTableCellElement>;
+
     let lastValue = "";
     let lastTD: HTMLTableCellElement | null = null;
     let lastParroquia = "";
@@ -110,25 +172,10 @@ const { hermanos, filtersComus } = Astro.props as Props;
       }
     });
 
-    let lastTypeValue = "";
-    let lastTypeTD: HTMLTableCellElement | null = null;
-    let lastComunidad = "";
-
-    tdsType.forEach((td) => {
-      const className = td.className;
-      const comunidadNum = className.split("-")[1];
-
-      if (td.textContent === lastTypeValue && comunidadNum === lastComunidad) {
-        if (lastTypeTD) {
-          lastTypeTD.rowSpan = (lastTypeTD.rowSpan || 1) + 1;
-          td.style.display = "none";
-        }
-      } else {
-        lastTypeValue = td.textContent || "";
-        lastComunidad = comunidadNum;
-        lastTypeTD = td;
-      }
-    });
+    // Fusionar parroquias solo si son del mismo número de comunidad
+    const tdsParroquia = document.querySelectorAll(
+      'td[class^="tdparroquia-"]',
+    ) as NodeListOf<HTMLTableCellElement>;
 
     let lastParroquiaValue = "";
     let lastParroquiaTD: HTMLTableCellElement | null = null;
@@ -154,7 +201,18 @@ const { hermanos, filtersComus } = Astro.props as Props;
       }
     });
   };
-  colapsarTDs(tds, tdsType, tdsParroquia);
+
+  // Ejecutar la función apropiada según qué tabla existe
+  const hasHermanos = document.querySelector(
+    'td[class^="td-"]:not([data-parroquia])',
+  );
+  const hasFilters = document.querySelector("td[data-parroquia]");
+
+  if (hasHermanos && !hasFilters) {
+    colapsarHermanos();
+  } else if (hasFilters) {
+    colapsarFilters();
+  }
 </script>
 
 <style>
@@ -164,20 +222,6 @@ const { hermanos, filtersComus } = Astro.props as Props;
 
       & td:first-child {
         text-align: center;
-        width: 0.001%;
-      }
-
-      & td:nth-child(2) {
-        width: 10%;
-      }
-      & td:nth-child(3) {
-        width: 20%;
-      }
-      & td:nth-child(4) {
-        width: 15%;
-      }
-      & td:nth-child(5) {
-        width: 10%;
       }
     }
     & tr:nth-child(even) {
