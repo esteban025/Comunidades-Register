@@ -5,10 +5,10 @@ import NewBodyTable from "../components/NewBodyTable.astro";
 import Titles from "../components/Titles.astro";
 import { CasasConvivencia, ParroquiaSlug } from "../lib/allComunidades";
 import { getComunityByLugar } from "../lib/getComunidades.ts";
-const nameParroquia = ParroquiaSlug.todas;
+const nameParroquia = ParroquiaSlug.sanPablo;
 const comunidades = getComunityByLugar(
   nameParroquia,
-  CasasConvivencia.QuintaLeonor,
+  CasasConvivencia.Seminario,
 );
 comunidades.sort((a, b) => a.numComunidad - b.numComunidad);
 ---
@@ -17,7 +17,6 @@ comunidades.sort((a, b) => a.numComunidad - b.numComunidad);
   <Titles typeTitle="h2" title="Filters" />
   <table class="table-data">
     <HeadTable typeHead="filters" />
-    <!-- <BodyTable filters comunidadesFilters={comunidades} /> -->
     <NewBodyTable filtersComus={comunidades} />
     <FootTable totals={comunidades} />
   </table>

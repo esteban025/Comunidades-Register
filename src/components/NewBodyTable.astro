@@ -54,7 +54,7 @@ const { hermanos, filtersComus } = Astro.props as Props;
             {hermano.numComunidad}
           </td>
           <td
-            class={`td${hermano.parroquia}-${hermano.numComunidad}`}
+            class={`tdparroquia-${hermano.numComunidad}`}
             data-parroquia={hermano.parroquia}
             data-comunidad={hermano.numComunidad}
           >
@@ -79,7 +79,7 @@ const { hermanos, filtersComus } = Astro.props as Props;
   ) as NodeListOf<HTMLTableCellElement>;
 
   const tdsParroquia = document.querySelectorAll(
-    'td[class^="tdsanPablo-"], td[class^="tdsanJuanPabloII-"], td[class^="tdcarmenGuzho-"], td[class^="tdquitachica-"], td[class^="tdmonay-"]',
+    'td[class^="tdparroquia-"]',
   ) as NodeListOf<HTMLTableCellElement>;
 
   const colapsarTDs = (
