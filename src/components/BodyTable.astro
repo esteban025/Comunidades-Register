@@ -1,0 +1,78 @@
+---
+interface Comunidad {
+  numComunidad: number;
+  matrimonios: string[];
+  solteros: string[];
+  solteras: string[];
+  total: number;
+  observaciones: {
+    nombres: string;
+    observaciones: string;
+  }[];
+}
+
+const comunidades = Astro.props.comunidades as Comunidad[];
+---
+
+<tbody>
+  {
+    comunidades.map((comunidad) => (
+      <tr>
+        <td>{comunidad.numComunidad}</td>
+        <td>
+          {comunidad.matrimonios.map((nombres) => (
+            <div>- {nombres}</div>
+          ))}
+        </td>
+        <td>
+          {comunidad.solteros.map((nombres) => (
+            <div>- {nombres}</div>
+          ))}
+        </td>
+        <td>
+          {comunidad.solteras.map((nombres) => (
+            <div>- {nombres}</div>
+          ))}
+        </td>
+        <td>{comunidad.total}</td>
+        <td>
+          {comunidad.observaciones.map((obs) => (
+            <div>
+              - {obs.nombres} - {obs.observaciones}
+            </div>
+          ))}
+        </td>
+        <td>{/* lugar de convivencia */}</td>
+      </tr>
+    ))
+  }
+</tbody>
+
+<style>
+  tbody {
+    & tr {
+      transition: background-color 0.2s;
+
+      & td:first-child,
+      & td:nth-child(5) {
+        text-align: center;
+      }
+    }
+    & tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+
+    & tr:hover {
+      background-color: #f0f0f0;
+    }
+    & td {
+      padding: 4px 6px;
+      border: 1px solid #ddd;
+      /* vertical-align: top; */
+    }
+
+    & tr:last-child td {
+      border-bottom: none;
+    }
+  }
+</style>

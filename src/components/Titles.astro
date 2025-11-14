@@ -1,0 +1,20 @@
+---
+interface Props {
+  title: string;
+  typeTitle?: "h1" | "h2" | "h3";
+}
+---
+
+{
+  Astro.props.typeTitle === "h1" ? (
+    <h1 class="text-center text-cyan-900 text-3xl font-semibold">
+      {Astro.props.title}
+    </h1>
+  ) : Astro.props.typeTitle === "h2" ? (
+    <h2 class="text-cyan-700 border-b-2 border-cyan-700 text-xl font-semibold uppercase mb-5">
+      {Astro.props.title}
+    </h2>
+  ) : (
+    <h3>{Astro.props.title}</h3>
+  )
+}

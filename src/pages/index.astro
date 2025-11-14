@@ -1,11 +1,24 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import Titles from "../components/Titles.astro";
+import CarmenGuzho from "../comunidades/CarmenGuzho.astro";
+import SanJuanPabloII from "../comunidades/SanJuanPabloII.astro";
+import SanPablo from "../comunidades/SanPablo.astro";
+import QuintaChica from "../comunidades/QuintaChica.astro";
+import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout>
-	<Welcome />
+	<header class="p-3 flex">
+		<button
+			class="no-print block bg-cyan-500 text-white p-3 rounded-full font-bold cursor-pointer hover:bg-cyan-600 transition duration-300"
+			onclick="window.print()">🖨️ Imprimir / Guardar como PDF</button
+		>
+	</header>
+	<Titles typeTitle="h1" title="Convivencia de Responsables- 2025" />
+	<main class="flex flex-col gap-10 mt-10">
+		<CarmenGuzho />
+		<SanPablo />
+		<SanJuanPabloII />
+		<QuintaChica />
+	</main>
 </Layout>

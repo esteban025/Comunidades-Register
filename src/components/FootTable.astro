@@ -1,0 +1,51 @@
+---
+interface NumbersTotal {
+  totalMatrimonios: number;
+  totalSolteros: number;
+  totalSolteras: number;
+  totalHermanos: number;
+}
+const totals = Astro.props.totals as NumbersTotal;
+---
+
+<tfoot>
+  <tr class="subtotal">
+    <td></td>
+    <td>
+      <p>
+        Matrimonios: <span>{totals.totalMatrimonios}</span>
+      </p>
+    </td>
+    <td>
+      <p>
+        Solteros: <span>{totals.totalSolteros}</span>
+      </p>
+    </td>
+    <td>
+      <p>
+        Solteras: <span>{totals.totalSolteras}</span>
+      </p>
+    </td>
+    <td colspan="2">
+      <div>
+        <p>Total de hermanos: {totals.totalHermanos}</p>
+      </div>
+    </td>
+    <td></td>
+  </tr>
+</tfoot>
+
+<style>
+  tfoot {
+    background-color: var(--color-sky-50);
+    font-weight: 600;
+    padding: 0.5rem 0;
+
+    & tr {
+      & td {
+        padding: 4px;
+        border: 1px solid #ddd;
+      }
+    }
+  }
+</style>

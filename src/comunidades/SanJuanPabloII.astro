@@ -1,0 +1,26 @@
+---
+import BodyTable from "../components/BodyTable.astro";
+import FootTable from "../components/FootTable.astro";
+import HeadTable from "../components/HeadTable.astro";
+import Titles from "../components/Titles.astro";
+import { ParroquiaSlug } from "../lib/allComunidades";
+import { getCommunity } from "../lib/getComunidades.ts";
+const nameParroquia = ParroquiaSlug.sanJuanPabloII;
+const comunidades = getCommunity(nameParroquia);
+---
+
+<section>
+  <Titles typeTitle="h2" title="San Juan Pablo II" />
+  <table>
+    <HeadTable />
+    <BodyTable comunidades={comunidades.comunidades} />
+    <FootTable
+      totals={{
+        totalMatrimonios: comunidades.totalMatrimonios,
+        totalSolteros: comunidades.totalSolteros,
+        totalSolteras: comunidades.totalSolteras,
+        totalHermanos: comunidades.totalHermanos,
+      }}
+    />
+  </table>
+</section>
