@@ -287,7 +287,19 @@ export const allComunidades = [
     ],
     solteros: [],
     solteras: []
-  }
+  },
+  {
+    parroquia: ParroquiaSlug.sanJuanPabloII,
+    numComunidad: 19,
+    matrimonios: [
+      { nombres: "Emiliano y Anita", observaciones: "Adultos" },
+      { nombres: "Paulo y Michelle", observaciones: "bebe de 1 año" },
+    ],
+    solteros: [{
+      nombres: "Jaime Loja", observaciones: ""
+    }],
+    solteras: []
+  },
 ]
 
 
