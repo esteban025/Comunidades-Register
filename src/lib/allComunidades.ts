@@ -15,7 +15,27 @@ export enum CasasConvivencia {
 
 } 
 
-export const allComunidades = [
+interface Comunidad {
+  parroquia: ParroquiaSlug;
+  numComunidad: number;
+  matrimonios: {
+    nombres: string;
+    observaciones: string;
+    hospedaje: CasasConvivencia;
+  }[],
+  solteros: {
+    nombres: string;
+    observaciones: string;
+    hospedaje: CasasConvivencia;
+  }[],
+  solteras: {
+    nombres: string;
+    observaciones: string;
+    hospedaje: CasasConvivencia;
+  }[]
+}
+
+export const allComunidades: Comunidad[] = [
   {
     parroquia: ParroquiaSlug.carmenGuzho,
     numComunidad: 1,
@@ -319,11 +339,11 @@ export const allComunidades = [
     parroquia: ParroquiaSlug.monay,
     numComunidad: 2,
     matrimonios: [
-      { nombres: "Felipe Luna y Diana Torres", observaciones: "Adultos y 1 niña" },
+      { nombres: "Felipe Luna y Diana Torres", observaciones: "Adultos y 1 niña", hospedaje: CasasConvivencia.Seminario },
     ],
     solteros: [],
     solteras: [
-      { nombres: "Nube Bustos", observaciones: "1 niño" }
+      { nombres: "Nube Bustos", observaciones: "1 niño", hospedaje: CasasConvivencia.CasaBetania }
     ]
   },
 ]
