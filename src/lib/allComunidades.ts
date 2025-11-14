@@ -2,7 +2,8 @@ export enum ParroquiaSlug {
   sanPablo = "sanPablo",
   sanJuanPabloII = "sanJuanPabloII",
   carmenGuzho = "carmenGuzho",
-  quitachica = "quitachica"
+  quitachica = "quitachica",
+  monay = "monay"
 }
 
 export enum CasasConvivencia {
@@ -85,7 +86,7 @@ export const allComunidades = [
     parroquia: ParroquiaSlug.sanPablo,
     numComunidad: 9,
     matrimonios: [
-      { nombres: "Roberto e Inés", observaciones: "" }
+      { nombres: "Roberto e Inés", observaciones: "1 niño pequeño" }
     ],
     solteros: [
       { nombres: "Joaquín Ortega", observaciones: "" },
@@ -298,6 +299,19 @@ export const allComunidades = [
     solteros: [{
       nombres: "Jaime Loja", observaciones: ""
     }],
+    solteras: []
+  },
+  {
+    parroquia: ParroquiaSlug.monay,
+    numComunidad: 1,
+    matrimonios: [
+      { nombres: "Carlos Quille y Lourdes Guaman", observaciones: "Adultos y 1 niña" },
+    ],
+    solteros: [
+      { nombres: "José Santos", observaciones: "Adulto" },
+      { nombres: "Julia Amón", observaciones: "Adulto" },
+      { nombres: "David Torres", observaciones: "Adulto" },
+    ],
     solteras: []
   },
 ]
