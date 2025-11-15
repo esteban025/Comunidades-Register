@@ -1,24 +1,10 @@
 /**
  * Datos y tipos de las comunidades
  * Este archivo contiene todos los datos de las comunidades de las diferentes parroquias
- */
+*/
 
-export enum ParroquiaSlug {
-  todas= "all",
-  sanPablo = "San Pablo",
-  sanJuanPabloII = "San Juan Pablo II",
-  carmenGuzho = "Carmen de Guzho",
-  quitachica = "Quitachica",
-  monay = "Santa Teresa de Monay"
-}
 
-export enum CasasConvivencia {
-  Seminario = "Seminario",
-  CasaBetania = "Casa Betania",
-  QuintaLeonor = "Quinta Leonor",
-  none = "Ninguno"
-} 
-
+// types
 interface Comunidad {
   parroquia: ParroquiaSlug;
   numComunidad: number;
@@ -41,6 +27,52 @@ interface Comunidad {
     hospedaje: string;
   }[]
 }
+
+// consts
+export enum ParroquiaSlug {
+  todas= "all",
+  sanPablo = "San Pablo",
+  sanJuanPabloII = "San Juan Pablo II",
+  carmenGuzho = "Carmen de Guzho",
+  quitachica = "Quitachica",
+  monay = "Santa Teresa de Monay",
+  ricaurte = "Ricaurte"
+}
+
+export enum CasasConvivencia {
+  seminario = "Seminario",
+  casaBetania = "Casa Betania",
+  quintaLeonor = "Quinta Leonor",
+  sumbahuaico = "Sumbahuaico",
+  none = "Ninguno"
+} 
+
+export const catequistasData = [
+  {
+    nombres: "Rodrigo y Eliana",
+    tipo: "matrimonio",
+    observaciones: "",
+    hospedaje: CasasConvivencia.sumbahuaico 
+  },
+  {
+    nombres: "Nelson y Jenny",
+    tipo: "matrimonio",
+    observaciones: "",
+    hospedaje: CasasConvivencia.sumbahuaico 
+  },
+  {
+    nombres: "Santiago Cordero y Noemí",
+    tipo: "matrimonio",
+    observaciones: "",
+    hospedaje: CasasConvivencia.sumbahuaico 
+  },
+  {
+    nombres: "Felipe",
+    tipo: "soltero",
+    observaciones: "",
+    hospedaje: CasasConvivencia.sumbahuaico 
+  },
+]
 
 export const allComunidades: Comunidad[] = [
   {
@@ -72,28 +104,28 @@ export const allComunidades: Comunidad[] = [
     matrimonios: [],
     solteros: [],
     solteras: [
-      { nombres: "Mercedes de Tapia", observaciones: "", hospedaje: "" },
-      { nombres: "Piedad Ochoa", observaciones: "", hospedaje: "" }
+      { nombres: "Mercedes de Tapia", observaciones: "", hospedaje: CasasConvivencia.sumbahuaico },
+      { nombres: "Piedad Ochoa", observaciones: "", hospedaje: CasasConvivencia.sumbahuaico }
     ]
   },
   {
     parroquia: ParroquiaSlug.sanPablo,
     numComunidad: 5,
     matrimonios: [
-      { nombres: "Miguel Ávila y Elsa Ordóñez", observaciones: "", hospedaje: "" },
-      { nombres: "Cornelio Romo y Ruth Urgilés", observaciones: "", hospedaje: "" }
+      { nombres: "Miguel Ávila y Elsa Ordóñez", observaciones: "", hospedaje: CasasConvivencia.sumbahuaico },
+      { nombres: "Cornelio Romo y Ruth Urgilés", observaciones: "", hospedaje: CasasConvivencia.sumbahuaico }
     ],
     solteros: [],
     solteras: [
-      { nombres: "Mirian Neira", observaciones: "", hospedaje: "" }
+      { nombres: "Mirian Neira", observaciones: "", hospedaje: CasasConvivencia.sumbahuaico }
     ]
   },
   {
     parroquia: ParroquiaSlug.sanPablo,
     numComunidad: 7,
     matrimonios: [
-      { nombres: "Andrés Ortiz y Carla Zúñiga", observaciones: "", hospedaje: "" },
-      { nombres: "Juan Narváez y María Fernanda Vidal", observaciones: "", hospedaje: "" }
+      { nombres: "Andrés Ortiz y Carla Zúñiga", observaciones: "Embarazada - 1° piso", hospedaje: CasasConvivencia.seminario },
+      { nombres: "Juan Narváez y María Fernanda Vidal", observaciones: "", hospedaje: CasasConvivencia.sumbahuaico }
     ],
     solteros: [],
     solteras: []
@@ -102,11 +134,11 @@ export const allComunidades: Comunidad[] = [
     parroquia: ParroquiaSlug.sanPablo,
     numComunidad: 8,
     matrimonios: [
-      { nombres: "Manuel Paredes y Lorena Rivera", observaciones: "", hospedaje: "" },
-      { nombres: "Pablo Cordero y Bernarda Moreno", observaciones: "4 niños pequeños", hospedaje: "" }
+      { nombres: "Manuel Paredes y Lorena Rivera", observaciones: "", hospedaje: CasasConvivencia.sumbahuaico },
+      { nombres: "Pablo Cordero y Bernarda Moreno", observaciones: "3 niños pequeños", hospedaje: CasasConvivencia.seminario }
     ],
     solteros: [
-      { nombres: "Sergio Quituisaca", observaciones: "", hospedaje: "" }
+      { nombres: "Sergio Quituisaca", observaciones: "", hospedaje: CasasConvivencia.sumbahuaico }
     ],
     solteras: []
   },
@@ -114,53 +146,53 @@ export const allComunidades: Comunidad[] = [
     parroquia: ParroquiaSlug.sanPablo,
     numComunidad: 9,
     matrimonios: [
-      { nombres: "Roberto e Inés", observaciones: "1 niño pequeño", hospedaje: "" }
+      { nombres: "Roberto e Inés", observaciones: "1 niño pequeño", hospedaje: CasasConvivencia.seminario }
     ],
     solteros: [
-      { nombres: "Joaquín Ortega", observaciones: "", hospedaje: "" },
-      { nombres: "Joaquín Cordero", observaciones: "", hospedaje: "" }
+      { nombres: "Joaquín Ortega", observaciones: "", hospedaje: CasasConvivencia.sumbahuaico },
+      { nombres: "Joaquín Cordero", observaciones: "", hospedaje: CasasConvivencia.sumbahuaico }
     ],
     solteras: [
-      { nombres: "Michelle Chitacapa", observaciones: "", hospedaje: "" }
+      { nombres: "Michelle Chitacapa", observaciones: "", hospedaje: CasasConvivencia.sumbahuaico }
     ]
   },
   {
     parroquia: ParroquiaSlug.sanPablo,
     numComunidad: 10,
     matrimonios: [
-      { nombres: "Julio Brito y Teresa Orellana", observaciones: "", hospedaje: "" },
-      { nombres: "Omar Pinos y Priscila Fernandez", observaciones: "", hospedaje: "" }
+      { nombres: "Julio Brito y Teresa Orellana", observaciones: "", hospedaje: CasasConvivencia.sumbahuaico },
+      { nombres: "Omar Pinos y Priscila Fernandez", observaciones: "", hospedaje: CasasConvivencia.sumbahuaico }
     ],
     solteros: [
-      { nombres: "Josue Malla", observaciones: "", hospedaje: "" },
-      { nombres: "José David Cordero", observaciones: "", hospedaje: "" }
+      { nombres: "Josue Malla", observaciones: "", hospedaje: CasasConvivencia.sumbahuaico },
+      { nombres: "José David Cordero", observaciones: "", hospedaje: CasasConvivencia.sumbahuaico }
     ],
     solteras: [
-      { nombres: "Daniela Inga", observaciones: "", hospedaje: "" }
+      { nombres: "Daniela Inga", observaciones: "", hospedaje: CasasConvivencia.sumbahuaico }
     ]
   },
   {
     parroquia: ParroquiaSlug.sanPablo,
     numComunidad: 11,
     matrimonios: [
-      { nombres: "William Mogrovejo y Jenny", observaciones: "", hospedaje: "" },
-      { nombres: "Marco Calle y Verónica", observaciones: "", hospedaje: "" }
+      { nombres: "William Mogrovejo y Jenny", observaciones: "", hospedaje: CasasConvivencia.sumbahuaico },
+      { nombres: "Marco Calle y Verónica", observaciones: "", hospedaje: CasasConvivencia.sumbahuaico }
     ],
     solteros: [
-      { nombres: "Diego Murillo", observaciones: "", hospedaje: "" }
+      { nombres: "Diego Murillo", observaciones: "", hospedaje: CasasConvivencia.sumbahuaico }
     ],
     solteras: [
-      { nombres: "Sandra Rodas", observaciones: "", hospedaje: "" }
+      { nombres: "Sandra Rodas", observaciones: "", hospedaje: CasasConvivencia.sumbahuaico }
     ]
   },
   {
     parroquia: ParroquiaSlug.sanPablo,
     numComunidad: 12,
     matrimonios: [
-      { nombres: "Diego Roldán y Jenny Matute", observaciones: "", hospedaje: "" }
+      { nombres: "Diego Roldán y Jenny Matute", observaciones: "", hospedaje: CasasConvivencia.sumbahuaico }
     ],
     solteros: [
-      { nombres: "Emilia Cordero", observaciones: "", hospedaje: "" }
+      { nombres: "Emilia Cordero", observaciones: "", hospedaje: CasasConvivencia.sumbahuaico }
     ],
     solteras: []
   },
@@ -173,7 +205,7 @@ export const allComunidades: Comunidad[] = [
     ],
     solteros: [],
     solteras: [
-      { nombres: "Maritza Faican", observaciones: "con bebé", hospedaje: "" },
+      { nombres: "Maritza Faican", observaciones: "con bebé", hospedaje: CasasConvivencia.seminario },
       { nombres: "Nancy Baculima", observaciones: "", hospedaje: "" }
     ]
   },
@@ -187,7 +219,7 @@ export const allComunidades: Comunidad[] = [
       { nombres: "Christian Otavalo", observaciones: "", hospedaje: "" }
     ],
     solteras: [
-      { nombres: "Martha León", observaciones: "1 bebé", hospedaje: "" },
+      { nombres: "Martha León", observaciones: "1 bebé", hospedaje: CasasConvivencia.seminario },
       { nombres: "Mishelle Peralta", observaciones: "", hospedaje: "" }
     ]
   },
@@ -207,7 +239,7 @@ export const allComunidades: Comunidad[] = [
     parroquia: ParroquiaSlug.sanJuanPabloII,
     numComunidad: 3,
     matrimonios: [
-      { nombres: "Alberto Padilla y Bety", observaciones: "adultos mayores", hospedaje: "" }
+      { nombres: "Alberto Padilla y Bety", observaciones: "adultos mayores", hospedaje: CasasConvivencia.seminario }
     ],
     solteros: [],
     solteras: []
@@ -216,7 +248,7 @@ export const allComunidades: Comunidad[] = [
     parroquia: ParroquiaSlug.sanJuanPabloII,
     numComunidad: 13,
     matrimonios: [
-      { nombres: "Pablo León y Tatiana Peñaloza", observaciones: "con 2 niños de 3 y 1 año", hospedaje: "" }
+      { nombres: "Pablo León y Tatiana Peñaloza", observaciones: "con 2 niños de 3 y 1 año", hospedaje: CasasConvivencia.seminario }
     ],
     solteros: [],
     solteras: [
@@ -312,7 +344,7 @@ export const allComunidades: Comunidad[] = [
     parroquia: ParroquiaSlug.sanJuanPabloII,
     numComunidad: 14,
     matrimonios: [
-      { nombres: "Xavier Domínguez y Maria Huachichullca", observaciones: "1 bebe", hospedaje: "" },
+      { nombres: "Xavier Domínguez y Maria Huachichullca", observaciones: "1 bebe", hospedaje: CasasConvivencia.seminario },
     ],
     solteros: [],
     solteras: []
@@ -322,7 +354,7 @@ export const allComunidades: Comunidad[] = [
     numComunidad: 19,
     matrimonios: [
       { nombres: "Emiliano y Anita", observaciones: "Adultos", hospedaje: "" },
-      { nombres: "Paulo y Michelle", observaciones: "bebe de 1 año", hospedaje: "" },
+      { nombres: "Paulo y Michelle", observaciones: "bebe de 1 año", hospedaje: CasasConvivencia.seminario },
     ],
     solteros: [{
       nombres: "Jaime Loja", observaciones: "", hospedaje: ""
@@ -347,11 +379,75 @@ export const allComunidades: Comunidad[] = [
     parroquia: ParroquiaSlug.monay,
     numComunidad: 2,
     matrimonios: [
-      { nombres: "Felipe Luna y Diana Torres", observaciones: "Adultos y 1 niña", hospedaje: "" },
+      { nombres: "Felipe Luna y Diana Torres", observaciones: "", hospedaje: "" },
     ],
     solteros: [],
     solteras: [
       { nombres: "Nube Bustos", observaciones: "1 niño", hospedaje: "" }
     ]
   },
+  {
+    parroquia: ParroquiaSlug.ricaurte,
+    numComunidad: 2,
+    matrimonios: [
+      { nombres: "Hector y Lola", observaciones: "", hospedaje: "" },
+      { nombres: "Carlos y Caty", observaciones: "", hospedaje: "" },
+    ],
+    solteros: [],
+    solteras: []
+  },
+  {
+    parroquia: ParroquiaSlug.sanJuanPabloII,
+    numComunidad: 16,
+    matrimonios: [],
+    solteros: [
+      { nombres: "David Román", observaciones: "", hospedaje: "" }
+    ],
+    solteras: []
+  },
+  {
+    parroquia: ParroquiaSlug.ricaurte,
+    numComunidad: 3,
+    matrimonios: [],
+    solteros: [
+      { nombres: "Mateo Lituma", observaciones: "", hospedaje: "" }
+    ],
+    solteras: [
+      { nombres: "Virginia Guamán", observaciones: "", hospedaje: "" }
+    ]
+  },
+  {
+    parroquia: ParroquiaSlug.carmenGuzho,
+    numComunidad: 3,
+    matrimonios: [],
+    solteros: [
+      { nombres: "Juan P. Yupanqui", observaciones: "", hospedaje: "" }
+    ],
+    solteras: []
+  },
+  {
+    parroquia: ParroquiaSlug.sanJuanPabloII,
+    numComunidad: 9,
+    matrimonios: [
+      { nombres: "Geovanny y Fanny", observaciones: "", hospedaje: "" }
+    ],
+    solteros: [
+      { nombres: "Rubén Guzhñay", observaciones: "", hospedaje: "" }
+    ],
+    solteras: [
+      { nombres: "Liz Faicán", observaciones: "problemas de salud", hospedaje: "" }
+    ]
+  },
+  {
+    parroquia: ParroquiaSlug.sanJuanPabloII,
+    numComunidad: 17,
+    matrimonios: [],
+    solteros: [],
+    solteras: [
+      { nombres: "Mónica Ortega", observaciones: "", hospedaje: "" },
+      { nombres: "Natalia Lasso", observaciones: "", hospedaje: "" }
+    ]
+  },
 ]
+
+

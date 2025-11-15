@@ -15,18 +15,37 @@ interface ComunidadFilters {
   hospedaje: string;
 }
 
+interface Catequistas {
+  nombres: string;
+  tipo: string;
+  observaciones: string;
+  hospedaje: string;
+}
+
+interface ResumenComus {
+  parroquia: string;
+  totalComus: number;
+  totalMatrimonios: number;
+  totalSolteros: number;
+  totalSolteras: number;
+  totalPersonas: number;
+}
+
 interface Props {
   hermanos?: Hermanos[];
   filtersComus?: ComunidadFilters[];
+  catequistas?: Catequistas[];
+  resumenComus?: ResumenComus[];
 }
-const { hermanos, filtersComus } = Astro.props as Props;
+const { hermanos, filtersComus, catequistas, resumenComus } =
+  Astro.props as Props;
 ---
 
 <tbody>
   {
     hermanos &&
       hermanos?.map((hermano) => (
-        <tr>
+        <tr class="tr-hermanos">
           <td
             class={`td-${hermano.numComunidad}`}
             data-comunidad={hermano.numComunidad}
@@ -45,7 +64,7 @@ const { hermanos, filtersComus } = Astro.props as Props;
   {
     filtersComus &&
       filtersComus?.map((hermano) => (
-        <tr>
+        <tr class="tr-filters">
           <td
             class={`td-${hermano.numComunidad}`}
             data-comunidad={hermano.numComunidad}
@@ -63,6 +82,30 @@ const { hermanos, filtersComus } = Astro.props as Props;
           <td>{hermano.tipo}</td>
           <td>{hermano.nombres}</td>
           <td>{hermano.hospedaje}</td>
+        </tr>
+      ))
+  }
+  {
+    catequistas &&
+      catequistas?.map((catequista) => (
+        <tr class="tr-catequistas">
+          <td>{catequista.nombres}</td>
+          <td>{catequista.tipo}</td>
+          <td>{catequista.observaciones}</td>
+          <td>{catequista.hospedaje}</td>
+        </tr>
+      ))
+  }
+  {
+    resumenComus &&
+      resumenComus?.map((resum) => (
+        <tr class="tr-resumen">
+          <td>{resum.parroquia}</td>
+          <td>{resum.totalComus}</td>
+          <td>{resum.totalMatrimonios}</td>
+          <td>{resum.totalSolteros}</td>
+          <td>{resum.totalSolteras}</td>
+          <td>{resum.totalPersonas}</td>
         </tr>
       ))
   }
@@ -216,25 +259,40 @@ const { hermanos, filtersComus } = Astro.props as Props;
 </script>
 
 <style>
-  tbody {
-    & tr {
-      transition: background-color 0.2s;
+  .tr-hermanos,
+  .tr-filters {
+    transition: background-color 0.2s;
 
-      & td:first-child {
-        text-align: center;
-      }
+    & td:first-child {
+      text-align: center;
     }
-    & tr:nth-child(even) {
-      background-color: #f9f9f9;
+    & td:nth-child(2) {
+      width: 16%;
     }
+    & td:nth-child(3) {
+      width: 30%;
+    }
+    & td:nth-child(4) {
+      width: 30%;
+    }
+    & td:nth-child(5) {
+      width: 30%;
+    }
+  }
+  & tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
 
-    & tr:hover {
-      background-color: #f0f0f0;
-    }
-    & td {
-      padding: 4px 6px;
-      border: 1px solid #ddd;
-      /* vertical-align: top; */
-    }
+  & tr:hover {
+    background-color: #f0f0f0;
+  }
+  & td {
+    padding: 4px 6px;
+    border: 1px solid var(--color-border);
+    /* vertical-align: top; */
+  }
+
+  .tr-catequistas td:first-child {
+    text-align: left;
   }
 </style>

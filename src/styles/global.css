@@ -3,6 +3,10 @@
 @import '@fontsource/poppins/600.css';
 @import '@fontsource/poppins/800.css';
 
+:root {
+  --color-border: #a1a1a1;
+}
+
 * {
   font-family: 'Poppins', sans-serif;
 }
@@ -11,6 +15,35 @@ table {
   width: 100%;
   border-collapse: collapse;
   font-size: 12px;
+}
+
+/* Estilos para impresión */
+@media print {
+  table {
+    page-break-inside: avoid;
+    page-break-after: auto;
+  }
+  
+  section {
+    page-break-inside: avoid;
+    page-break-after: auto;
+  }
+  
+  thead {
+    display: table-header-group;
+  }
+  
+  tbody {
+    display: table-row-group;
+  }
+  
+  tr {
+    page-break-inside: avoid;
+    page-break-after: auto;
+  }
+}
+.tr-catequistas td:first-child {
+  text-align: left;
 }
 
 .resumen {

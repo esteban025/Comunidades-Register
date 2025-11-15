@@ -11,15 +11,12 @@ import {
 const nameParroquia = ParroquiaSlug.quitachica;
 const comunidades = getComunidadesByParroquia(nameParroquia);
 const allHermanosParroquia = getAllHermanos(nameParroquia);
-
-console.log(allHermanosParroquia);
 ---
 
 <section>
   <Titles typeTitle="h2" title={nameParroquia} />
   <table class="table-data">
     <HeadTable />
-    <!-- <BodyTable comunidades={comunidades.comunidades} /> -->
     <NewBodyTable hermanos={allHermanosParroquia} />
     <FootTable
       totals={{

@@ -14,12 +14,20 @@ interface TotalsFilters {
   hospedaje: string;
 }
 
+interface ResumenTotal {
+  totalComus: number;
+  totalMatrimonios: number;
+  totalSolteros: number;
+  totalSolteras: number;
+  totalHermanos: number;
+}
+
 interface Props {
   totals?: NumbersTotal;
   totalsFilters?: TotalsFilters[];
-  sectionFilters?: boolean;
+  resumenTotal?: ResumenTotal;
 }
-const { totals, sectionFilters = false, totalsFilters } = Astro.props as Props;
+const { totals, totalsFilters, resumenTotal } = Astro.props as Props;
 
 const totalMatrimonios = totalsFilters?.filter(
   (h) => h.tipo === "matrimonio",
@@ -29,55 +37,64 @@ const totalSolteras = totalsFilters?.filter((h) => h.tipo === "soltera").length;
 const totalHospedados = totalMatrimonios! * 2 + totalSolteros! + totalSolteras!;
 ---
 
-{
-  sectionFilters ? (
-    <tfoot>
+<tfoot>
+  {
+    totalsFilters && (
       <tr>
         <td />
-        <td colspan="2">
-          {totalsFilters && `Total de hospedados: ${totalHospedados}`}
-        </td>
+        <td colspan="2">Total de hospedados: {totalHospedados}</td>
         <td colspan="">
-          {totalsFilters && (
-            <div class="flex items-center gap-4">
-              <p>Matrimonios: {totalMatrimonios}</p>
-              <p>Solteros: {totalSolteros}</p>
-              <p>Solteras: {totalSolteras}</p>
-            </div>
-          )}
+          <div class="flex items-center gap-4">
+            <p>Matrimonios: {totalMatrimonios}</p>
+            <p>Solteros: {totalSolteros}</p>
+            <p>Solteras: {totalSolteras}</p>
+          </div>
         </td>
         <td />
       </tr>
-    </tfoot>
-  ) : (
-    <tfoot>
+    )
+  }
+  {
+    resumenTotal && (
+      <tr>
+        <td>Total General</td>
+        <td>{resumenTotal.totalComus} - Comunidades</td>
+        <td>{resumenTotal.totalMatrimonios} - Matrimonios</td>
+        <td>{resumenTotal.totalSolteros} - Solteros</td>
+        <td>{resumenTotal.totalSolteras} - Solteras</td>
+        <td>{resumenTotal.totalHermanos} - Hermanos</td>
+      </tr>
+    )
+  }
+  {
+    totals && (
       <tr class="subtotal">
         <td />
         <td>
           <p>
-            Matrimonios: <span>{totals?.totalMatrimonios}</span>
+            Matrimonios: <span>{totals.totalMatrimonios}</span>
           </p>
         </td>
         <td>
           <p class="flex items-center gap-5">
             <span>
-              Solteros: <span>{totals?.totalSolteros}</span>
+              Solteros: <span>{totals.totalSolteros}</span>
             </span>
             <span>
-              Solteras: <span>{totals?.totalSolteras}</span>
+              Solteras: <span>{totals.totalSolteras}</span>
             </span>
           </p>
         </td>
 
         <td colspan="2">
           <div>
-            <p>Total de hermanos: {totals?.totalHermanos}</p>
+            <p>Total de hermanos: {totals.totalHermanos}</p>
           </div>
         </td>
       </tr>
-    </tfoot>
-  )
-}
+    )
+  }
+</tfoot>
 
 <style>
   tfoot {
@@ -88,7 +105,7 @@ const totalHospedados = totalMatrimonios! * 2 + totalSolteros! + totalSolteras!;
     & tr {
       & td {
         padding: 4px;
-        border: 1px solid #ddd;
+        border: 1px solid var(--color-border);
       }
     }
   }

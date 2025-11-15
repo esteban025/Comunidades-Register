@@ -1,0 +1,16 @@
+---
+import HeadTable from "../components/HeadTable.astro";
+import NewBodyTable from "../components/NewBodyTable.astro";
+import Titles from "../components/Titles.astro";
+import { catequistasData } from "../lib/comunidadesData";
+const nameParroquia = "Catequistas";
+const catequistas = catequistasData;
+---
+
+<section>
+  <Titles typeTitle="h2" title={nameParroquia} />
+  <table class="table-data">
+    <HeadTable typeHead="catequistas" />
+    <NewBodyTable catequistas={catequistas} />
+  </table>
+</section>

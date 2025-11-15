@@ -7,8 +7,8 @@ import { CasasConvivencia, ParroquiaSlug } from "../lib/comunidadesData";
 import { getHermanosByHospedaje } from "../lib/comunidadesQueries.ts";
 
 // Cambiar dependiendo la parroquia y el hospedaje que se quiera filtrar
-const nameParroquia = ParroquiaSlug.carmenGuzho;
-const nameHospedaje = CasasConvivencia.CasaBetania;
+const nameParroquia = ParroquiaSlug.sanPablo;
+const nameHospedaje = CasasConvivencia.seminario;
 
 const comunidades = getHermanosByHospedaje(nameParroquia, nameHospedaje);
 comunidades.sort((a, b) => a.numComunidad - b.numComunidad);
@@ -19,6 +19,6 @@ comunidades.sort((a, b) => a.numComunidad - b.numComunidad);
   <table class="table-data">
     <HeadTable typeHead="filters" />
     <NewBodyTable filtersComus={comunidades} />
-    <FootTable sectionFilters totalsFilters={comunidades} />
+    <FootTable totalsFilters={comunidades} />
   </table>
 </section>

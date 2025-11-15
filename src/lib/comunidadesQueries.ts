@@ -167,3 +167,35 @@ export const getAllHermanos = (nombreParroquia = "all") => {
 
   return todosLosHermanos;
 }
+
+export const resumenHermanos = () => {
+
+  const resumenHermanos: Array<{
+    parroquia: string;
+    totalComus: number; // total de comunidades de esta parroquia 
+    totalMatrimonios: number;
+    totalSolteros: number;
+    totalSolteras: number;
+    totalPersonas: number;
+  }> = [];
+
+  const parroquias = Array.from(new Set(allComunidades.map(c => c.parroquia)));
+  parroquias.forEach(parroquia => {
+    const comunidadesParroquia = allComunidades.filter(c => c.parroquia === parroquia);
+    const totalComus = comunidadesParroquia.length;
+    const totalMatrimonios = comunidadesParroquia.reduce((total, comu) => total + comu.matrimonios.length, 0);
+    const totalSolteros = comunidadesParroquia.reduce((total, comu) => total + comu.solteros.length, 0);
+    const totalSolteras = comunidadesParroquia.reduce((total, comu) => total + comu.solteras.length, 0);
+    const totalPersonas = (totalMatrimonios * 2) + totalSolteros + totalSolteras;
+    
+    resumenHermanos.push({
+      parroquia,
+      totalComus,
+      totalMatrimonios,
+      totalSolteros,
+      totalSolteras,
+      totalPersonas
+    });
+  })
+  return resumenHermanos;
+}

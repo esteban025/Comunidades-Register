@@ -1,0 +1,35 @@
+---
+import Titles from "./Titles.astro";
+
+// utils
+import { getSumTotal } from "../utils/getSumTotal.ts";
+
+// table
+import HeadTable from "./HeadTable.astro";
+import NewBodyTable from "./NewBodyTable.astro";
+import FootTable from "./FootTable.astro";
+
+// data
+import { resumenHermanos } from "../lib/comunidadesQueries.ts";
+const resumenTotalHermanos = resumenHermanos();
+function getTotals(resumen: typeof resumenTotalHermanos) {
+  return {
+    totalComus: getSumTotal(resumen.map((r) => r.totalComus)),
+    totalMatrimonios: getSumTotal(resumen.map((r) => r.totalMatrimonios)),
+    totalSolteros: getSumTotal(resumen.map((r) => r.totalSolteros)),
+    totalSolteras: getSumTotal(resumen.map((r) => r.totalSolteras)),
+    totalHermanos: getSumTotal(resumen.map((r) => r.totalPersonas)),
+  };
+}
+
+const resumenTotals = getTotals(resumenTotalHermanos);
+---
+
+<section>
+  <Titles typeTitle="h2" title="Resumen General" />
+  <table class="table-data">
+    <HeadTable typeHead="resume" />
+    <NewBodyTable resumenComus={resumenTotalHermanos} />
+    <FootTable resumenTotal={resumenTotals} />
+  </table>
+</section>
