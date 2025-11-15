@@ -7,11 +7,19 @@ import { CasasConvivencia, ParroquiaSlug } from "../lib/comunidadesData";
 import { getHermanosByHospedaje } from "../lib/comunidadesQueries.ts";
 
 // Cambiar dependiendo la parroquia y el hospedaje que se quiera filtrar
-const nameParroquia = ParroquiaSlug.sanPablo;
+const nameParroquia = ParroquiaSlug.todas;
 const nameHospedaje = CasasConvivencia.seminario;
 
 const comunidades = getHermanosByHospedaje(nameParroquia, nameHospedaje);
+
+// ordenar por nombre de parroquia
+// comunidades.sort((a, b) => a.parroquia.localeCompare(b.parroquia));
+
+// ordenar por número de comunidad
 comunidades.sort((a, b) => a.numComunidad - b.numComunidad);
+
+// ordenar por nombre de hospedaje+
+// comunidades.sort((a, b) => a.hospedaje.localeCompare(b.hospedaje));
 ---
 
 <section>

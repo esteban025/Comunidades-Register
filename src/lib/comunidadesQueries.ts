@@ -51,9 +51,9 @@ export const getComunidadesByParroquia = (nombreParroquia: string) => {
  * @param lugarHospedaje - Valor del enum CasasConvivencia
  * @returns Lista de hermanos hospedados en el lugar especificado
  */
-export const getHermanosByHospedaje = (nombreParroquia = "all", lugarHospedaje: string) => {
+export const getHermanosByHospedaje = (nombreParroquia = "Todas las Parroquias", lugarHospedaje: string) => {
 
-  const comunidadesFiltradas = nombreParroquia !== "all" 
+  const comunidadesFiltradas = nombreParroquia !== "Todas las Parroquias" 
     ? [...allComunidades].filter(comunidad => comunidad.parroquia === nombreParroquia)
     : [...allComunidades];
 
@@ -106,7 +106,7 @@ export const getHermanosByHospedaje = (nombreParroquia = "all", lugarHospedaje: 
       });
   });
 
-  return hermanosPorHospedaje;
+  return hermanosPorHospedaje
 }
 
 /**
@@ -114,9 +114,9 @@ export const getHermanosByHospedaje = (nombreParroquia = "all", lugarHospedaje: 
  * @param nombreParroquia - "all" para todas las parroquias o slug específico
  * @returns Lista completa de hermanos con su información
  */
-export const getAllHermanos = (nombreParroquia = "all") => {
+export const getAllHermanos = (nombreParroquia = "Todas las Parroquias") => {
   
-  const comunidadesFiltradas = nombreParroquia !== "all" 
+  const comunidadesFiltradas = nombreParroquia !== "Todas las Parroquias" 
     ? [...allComunidades].filter(comunidad => comunidad.parroquia === nombreParroquia)
     : [...allComunidades];
 

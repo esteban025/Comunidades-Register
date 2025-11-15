@@ -41,16 +41,14 @@ const totalHospedados = totalMatrimonios! * 2 + totalSolteros! + totalSolteras!;
   {
     totalsFilters && (
       <tr>
-        <td />
-        <td colspan="2">Total de hospedados: {totalHospedados}</td>
-        <td colspan="">
+        <td colspan="3">Total de hospedados: {totalHospedados}</td>
+        <td colspan="3">
           <div class="flex items-center gap-4">
             <p>Matrimonios: {totalMatrimonios}</p>
             <p>Solteros: {totalSolteros}</p>
             <p>Solteras: {totalSolteras}</p>
           </div>
         </td>
-        <td />
       </tr>
     )
   }

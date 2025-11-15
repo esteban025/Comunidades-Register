@@ -39,9 +39,12 @@ interface Props {
 }
 const { hermanos, filtersComus, catequistas, resumenComus } =
   Astro.props as Props;
+
+// Generar un ID único para este tbody
+const tableId = `tbody-${Math.random().toString(36).substr(2, 9)}`;
 ---
 
-<tbody>
+<tbody id={tableId}>
   {
     hermanos &&
       hermanos?.map((hermano) => (
@@ -111,22 +114,27 @@ const { hermanos, filtersComus, catequistas, resumenComus } =
   }
 </tbody>
 
-<script>
+<script define:vars={{ tableId }} is:inline>
+  // Encontrar el tbody específico por su ID
+  const tbody = document.getElementById(tableId);
+
+  if (!tbody) return;
+
   // Función para fusionar celdas en tabla de hermanos (por parroquia)
-  const colapsarHermanos = () => {
+  const colapsarHermanos = (tbodyElement) => {
     // Fusionar números de comunidad si tienen la misma clase Y son consecutivos
-    const tds = document.querySelectorAll(
+    const tds = tbodyElement.querySelectorAll(
       'td[class^="td-"]:not([data-parroquia])',
-    ) as NodeListOf<HTMLTableCellElement>;
+    );
 
     let lastValue = "";
-    let lastTD: HTMLTableCellElement | null = null;
+    let lastTD = null;
     let lastClass = "";
-    let lastRow: HTMLTableRowElement | null = null;
+    let lastRow = null;
 
     tds.forEach((td) => {
       const currentClass = td.className;
-      const currentRow = td.parentElement as HTMLTableRowElement;
+      const currentRow = td.parentElement;
 
       // Verificar si es la fila inmediatamente siguiente
       const isConsecutive =
@@ -151,19 +159,19 @@ const { hermanos, filtersComus, catequistas, resumenComus } =
     });
 
     // Fusionar tipos solo si son del mismo número de comunidad Y consecutivos
-    const tdsType = document.querySelectorAll(
+    const tdsType = tbodyElement.querySelectorAll(
       'td[class^="tdsoltero-"], td[class^="tdsoltera-"], td[class^="tdmatrimonio-"]',
-    ) as NodeListOf<HTMLTableCellElement>;
+    );
 
     let lastTypeValue = "";
-    let lastTypeTD: HTMLTableCellElement | null = null;
+    let lastTypeTD = null;
     let lastComunidad = "";
-    let lastTypeRow: HTMLTableRowElement | null = null;
+    let lastTypeRow = null;
 
     tdsType.forEach((td) => {
       const className = td.className;
       const comunidadNum = className.split("-")[1];
-      const currentRow = td.parentElement as HTMLTableRowElement;
+      const currentRow = td.parentElement;
       const isConsecutive =
         lastTypeRow && lastTypeRow.nextElementSibling === currentRow;
 
@@ -186,14 +194,14 @@ const { hermanos, filtersComus, catequistas, resumenComus } =
   };
 
   // Función para fusionar celdas en tabla de filtros (con parroquias)
-  const colapsarFilters = () => {
+  const colapsarFilters = (tbodyElement) => {
     // Fusionar números de comunidad solo si son de la misma parroquia
-    const tds = document.querySelectorAll(
+    const tds = tbodyElement.querySelectorAll(
       'td[class^="td-"][data-parroquia]',
-    ) as NodeListOf<HTMLTableCellElement>;
+    );
 
     let lastValue = "";
-    let lastTD: HTMLTableCellElement | null = null;
+    let lastTD = null;
     let lastParroquia = "";
 
     tds.forEach((td) => {
@@ -216,12 +224,12 @@ const { hermanos, filtersComus, catequistas, resumenComus } =
     });
 
     // Fusionar parroquias solo si son del mismo número de comunidad
-    const tdsParroquia = document.querySelectorAll(
+    const tdsParroquia = tbodyElement.querySelectorAll(
       'td[class^="tdparroquia-"]',
-    ) as NodeListOf<HTMLTableCellElement>;
+    );
 
     let lastParroquiaValue = "";
-    let lastParroquiaTD: HTMLTableCellElement | null = null;
+    let lastParroquiaTD = null;
     let lastComunidadParroquia = "";
 
     tdsParroquia.forEach((td) => {
@@ -245,16 +253,16 @@ const { hermanos, filtersComus, catequistas, resumenComus } =
     });
   };
 
-  // Ejecutar la función apropiada según qué tabla existe
-  const hasHermanos = document.querySelector(
+  // Ejecutar la función apropiada según qué tabla existe en este tbody específico
+  const hasHermanos = tbody.querySelector(
     'td[class^="td-"]:not([data-parroquia])',
   );
-  const hasFilters = document.querySelector("td[data-parroquia]");
+  const hasFilters = tbody.querySelector("td[data-parroquia]");
 
   if (hasHermanos && !hasFilters) {
-    colapsarHermanos();
+    colapsarHermanos(tbody);
   } else if (hasFilters) {
-    colapsarFilters();
+    colapsarFilters(tbody);
   }
 </script>
 
@@ -264,6 +272,7 @@ const { hermanos, filtersComus, catequistas, resumenComus } =
     transition: background-color 0.2s;
 
     & td:first-child {
+      width: 1%;
       text-align: center;
     }
     & td:nth-child(2) {

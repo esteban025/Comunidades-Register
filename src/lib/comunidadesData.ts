@@ -30,7 +30,7 @@ interface Comunidad {
 
 // consts
 export enum ParroquiaSlug {
-  todas= "all",
+  todas= "Todas las Parroquias",
   sanPablo = "San Pablo",
   sanJuanPabloII = "San Juan Pablo II",
   carmenGuzho = "Carmen de Guzho",
