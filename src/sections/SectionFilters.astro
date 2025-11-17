@@ -3,30 +3,29 @@ import FootTable from "../components/FootTable.astro";
 import HeadTable from "../components/HeadTable.astro";
 import NewBodyTable from "../components/NewBodyTable.astro";
 import Titles from "../components/Titles.astro";
-import { CasasConvivencia, ParroquiaSlug } from "../lib/comunidadesData";
-import { getHermanosByHospedaje } from "../lib/comunidadesQueries.ts";
+import { generarFiltrosHospedaje } from "../lib/comunidadesQueries.ts";
 
-// Cambiar dependiendo la parroquia y el hospedaje que se quiera filtrar
-const nameParroquia = ParroquiaSlug.todas;
-const nameHospedaje = CasasConvivencia.seminario;
-
-const comunidades = getHermanosByHospedaje(nameParroquia, nameHospedaje);
-
-// ordenar por nombre de parroquia
-// comunidades.sort((a, b) => a.parroquia.localeCompare(b.parroquia));
-
-// ordenar por número de comunidad
-comunidades.sort((a, b) => a.numComunidad - b.numComunidad);
-
-// ordenar por nombre de hospedaje+
-// comunidades.sort((a, b) => a.hospedaje.localeCompare(b.hospedaje));
+// Obtener los filtros ya procesados con toda la lógica encapsulada
+const dataFilters = generarFiltrosHospedaje();
 ---
 
-<section>
-  <Titles typeTitle="h2" title={`${nameHospedaje} - ${nameParroquia}`} />
-  <table class="table-data">
-    <HeadTable typeHead="filters" />
-    <NewBodyTable filtersComus={comunidades} />
-    <FootTable totalsFilters={comunidades} />
-  </table>
+<section class="flex flex-col gap-10">
+  {
+    dataFilters.map((fil) => (
+      <section>
+        <Titles typeTitle="h2" title={fil.title} />
+        <table class="table-data">
+          <HeadTable typeHead="filters" />
+          <NewBodyTable filtersComus={fil.list} />
+          <FootTable totalsFilters={fil.list} />
+        </table>
+        {fil.nota && (
+          <div class="note text-sm mt-3">
+            <span class="text-red-400 font-semibold">Nota: </span>
+            <span>{fil.nota}</span>
+          </div>
+        )}
+      </section>
+    ))
+  }
 </section>

@@ -1,4 +1,20 @@
-import { allComunidades } from "./comunidadesData";
+import { allComunidades, CasasConvivencia, ParroquiaSlug } from "./comunidadesData";
+import { catequistasData } from "./comunidadesData";
+
+// Tipos para estructurar los datos retornados
+export interface HermanoFiltrado {
+  numComunidad: number;
+  parroquia: string;
+  tipo: string;
+  nombres: string;
+  hospedaje: string;
+}
+
+export interface DataFilter {
+  title: string;
+  list: HermanoFiltrado[];
+  nota?: string;
+}
 
 /**
  * Obtiene las comunidades de una parroquia específica con estadísticas agregadas
@@ -9,39 +25,61 @@ export const getComunidadesByParroquia = (nombreParroquia: string) => {
   
   const comunidadesFiltradas = [...allComunidades]
     .filter(comunidad => comunidad.parroquia === nombreParroquia)
-    .sort((a, b) => a.numComunidad - b.numComunidad)
-    .map(comunidad => ({
-      numComunidad: comunidad.numComunidad,
-      matrimonios: comunidad.matrimonios.flatMap(m => m.nombres),
-      solteros: comunidad.solteros.flatMap(s => s.nombres),
-      solteras: comunidad.solteras.flatMap(s => s.nombres),
-      total: (comunidad.matrimonios.length * 2) + comunidad.solteros.length + comunidad.solteras.length,
-      observaciones: [
-        ...comunidad.matrimonios,
-        ...comunidad.solteros,
-        ...comunidad.solteras
-      ].flatMap(persona => 
-        persona.observaciones.trim() !== "" 
-          ? [{ nombres: persona.nombres, observaciones: persona.observaciones }] 
-          : []
-      ),
-      hospedaje: [
-        ...comunidad.matrimonios,
-        ...comunidad.solteros,
-        ...comunidad.solteras
-      ].flatMap(persona => 
-        persona.hospedaje 
-          ? [{ nombres: persona.nombres, casa: persona.hospedaje }] 
-          : []
-      ),
-    }));
+    .sort((a, b) => a.numComunidad - b.numComunidad);
+
+  const hermanosFiltrados: Array<{
+    numComunidad: number;
+    parroquia: string;
+    tipo: string;
+    nombres: string;
+    hospedaje: string;
+  }> = [];
+
+  comunidadesFiltradas.forEach(comunidad => {
+    // Agregar matrimonios
+    comunidad.matrimonios.forEach(matrimonio => {
+      hermanosFiltrados.push({
+        numComunidad: comunidad.numComunidad,
+        parroquia: comunidad.parroquia,
+        tipo: "matrimonio",
+        nombres: matrimonio.nombres,
+        hospedaje: matrimonio.hospedaje,
+      });
+    });
+
+    // Agregar solteros
+    comunidad.solteros.forEach(soltero => {
+      hermanosFiltrados.push({
+        numComunidad: comunidad.numComunidad,
+        parroquia: comunidad.parroquia,
+        tipo: "soltero",
+        nombres: soltero.nombres,
+        hospedaje: soltero.hospedaje,
+      });
+    });
+
+    // Agregar solteras
+    comunidad.solteras.forEach(soltera => {
+      hermanosFiltrados.push({
+        numComunidad: comunidad.numComunidad,
+        parroquia: comunidad.parroquia,
+        tipo: "soltera",
+        nombres: soltera.nombres,
+        hospedaje: soltera.hospedaje,
+      });
+    });
+  });
+
+  const totalMatrimonios = comunidadesFiltradas.reduce((total, comunidad) => total + comunidad.matrimonios.length, 0);
+  const totalSolteros = comunidadesFiltradas.reduce((total, comunidad) => total + comunidad.solteros.length, 0);
+  const totalSolteras = comunidadesFiltradas.reduce((total, comunidad) => total + comunidad.solteras.length, 0);
 
   return {
-    comunidades: comunidadesFiltradas,
-    totalMatrimonios: comunidadesFiltradas.reduce((total, comunidad) => total + comunidad.matrimonios.length, 0),
-    totalSolteros: comunidadesFiltradas.reduce((total, comunidad) => total + comunidad.solteros.length, 0),
-    totalSolteras: comunidadesFiltradas.reduce((total, comunidad) => total + comunidad.solteras.length, 0),
-    totalHermanos: comunidadesFiltradas.reduce((total, comunidad) => total + comunidad.total, 0)
+    hermanos: hermanosFiltrados,
+    totalMatrimonios,
+    totalSolteros,
+    totalSolteras,
+    totalHermanos: (totalMatrimonios * 2) + totalSolteros + totalSolteras
   };
 }
 
@@ -196,6 +234,160 @@ export const resumenHermanos = () => {
       totalSolteras,
       totalPersonas
     });
+
+  })
+  // catequistas manualmente
+  resumenHermanos.push({
+    parroquia: "Catequistas",
+    totalComus: 0,
+    totalMatrimonios: catequistasData.length,
+    totalSolteros: 0,
+    totalSolteras: 0,
+    totalPersonas: catequistasData.length * 2 - 1
+  })
+
+  // didascadas manualmente
+  resumenHermanos.push({
+    parroquia: "Didascalas",
+    totalComus: 0,
+    totalMatrimonios: 0,
+    totalSolteros: 0,
+    totalSolteras: 2,
+    totalPersonas: 2
+  })
+
+  // guardia manualmente
+  resumenHermanos.push({
+    parroquia: "Guardia",
+    totalComus: 0,
+    totalMatrimonios: 0,
+    totalSolteros: 1,
+    totalSolteras: 0,
+    totalPersonas:1
   })
   return resumenHermanos;
 }
+
+/**
+ * Agrega catequistas a una lista de hermanos
+ * @param listaHermanos - Lista de hermanos donde agregar los catequistas
+ * @returns Lista con catequistas agregados
+ */
+export const agregarCatequistas = (listaHermanos: HermanoFiltrado[]): HermanoFiltrado[] => {
+  const catequistasFormateados = catequistasData.map((cat) => ({
+    numComunidad: 0,
+    parroquia: "Catequistas",
+    tipo: cat.tipo,
+    nombres: cat.nombres,
+    hospedaje: cat.hospedaje,
+  }));
+
+  return [...listaHermanos, ...catequistasFormateados];
+};
+
+/**
+ * Agrega didascalas y guardia a una lista de hermanos
+ * @param listaHermanos - Lista de hermanos donde agregar didascalas y guardia
+ * @returns Lista con didascalas y guardia agregados
+ */
+export const agregarDidascalasYGuardia = (listaHermanos: HermanoFiltrado[]): HermanoFiltrado[] => {
+  const didascalasYGuardia: HermanoFiltrado[] = [
+    {
+      numComunidad: 0,
+      parroquia: "Didascalas",
+      tipo: "soltera",
+      nombres: "Didascala 1",
+      hospedaje: CasasConvivencia.seminario,
+    },
+    {
+      numComunidad: 0,
+      parroquia: "Didascalas",
+      tipo: "soltera",
+      nombres: "Didascala 2",
+      hospedaje: CasasConvivencia.seminario,
+    },
+    {
+      numComunidad: 0,
+      parroquia: "Guardia",
+      tipo: "soltero",
+      nombres: "Silvio",
+      hospedaje: CasasConvivencia.seminario,
+    },
+  ];
+
+  return [...listaHermanos, ...didascalasYGuardia];
+};
+
+/**
+ * Genera los filtros de hospedaje para la vista de filtros
+ * Incluye automáticamente catequistas en Sumbahuaico y didascalas/guardia en Seminario
+ * @returns Array de objetos con título y lista de hermanos filtrados por hospedaje
+ */
+export const generarFiltrosHospedaje = (): DataFilter[] => {
+  // Filtro para Seminario con didascalas y guardia
+  const hermanosSeminario = getHermanosByHospedaje(
+    ParroquiaSlug.todas,
+    CasasConvivencia.seminario
+  );
+  const seminarioConExtras = agregarDidascalasYGuardia(hermanosSeminario);
+
+  // Filtro para Sumbahuaico con catequistas
+  const hermanosSumbahuaico = getHermanosByHospedaje(
+    ParroquiaSlug.todas,
+    CasasConvivencia.sumbahuaico
+  );
+  const sumbahuaicoConCatequistas = agregarCatequistas(hermanosSumbahuaico);
+
+  // Filtro para Casa Betania
+  const hermanosCasaBetania = getHermanosByHospedaje(
+    ParroquiaSlug.todas,
+    CasasConvivencia.casaBetania
+  );
+
+  return [
+    {
+      title: `${ParroquiaSlug.todas} - ${CasasConvivencia.seminario}`,
+      list: seminarioConExtras,
+    },
+    {
+      title: `${ParroquiaSlug.todas} - ${CasasConvivencia.casaBetania}`,
+      list: hermanosCasaBetania,
+    },
+    {
+      title: `${ParroquiaSlug.todas} - ${CasasConvivencia.sumbahuaico}`,
+      list: sumbahuaicoConCatequistas,
+    },
+  ];
+};
+
+/**
+ * Genera filtros personalizados por hospedaje
+ * @param hospedajes - Array de hospedajes a filtrar
+ * @param incluirCatequistasEn - Opcional: hospedaje donde incluir catequistas
+ * @param incluirDidascalasEn - Opcional: hospedaje donde incluir didascalas y guardia
+ * @returns Array de filtros personalizados
+ */
+export const generarFiltrosPersonalizados = (
+  hospedajes: CasasConvivencia[],
+  incluirCatequistasEn?: CasasConvivencia,
+  incluirDidascalasEn?: CasasConvivencia
+): DataFilter[] => {
+  return hospedajes.map((hospedaje) => {
+    let hermanos = getHermanosByHospedaje(ParroquiaSlug.todas, hospedaje);
+
+    // Agregar catequistas si corresponde
+    if (incluirCatequistasEn === hospedaje) {
+      hermanos = agregarCatequistas(hermanos);
+    }
+
+    // Agregar didascalas y guardia si corresponde
+    if (incluirDidascalasEn === hospedaje) {
+      hermanos = agregarDidascalasYGuardia(hermanos);
+    }
+
+    return {
+      title: `${ParroquiaSlug.todas} - ${hospedaje}`,
+      list: hermanos,
+    };
+  });
+};

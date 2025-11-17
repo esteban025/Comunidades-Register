@@ -20,13 +20,14 @@ table {
 /* Estilos para impresión */
 @media print {
   table {
-    page-break-inside: avoid;
+    page-break-inside: auto;
     page-break-after: auto;
   }
   
   section {
-    page-break-inside: avoid;
-    page-break-after: auto;
+    page-break-inside: auto;
+    /* page-break-after: always; */
+    page-break-before: auto;
   }
   
   thead {
@@ -37,9 +38,19 @@ table {
     display: table-row-group;
   }
   
+  tfoot {
+    display: table-row-group;
+    page-break-before: auto;
+    page-break-after: avoid;
+  }
+  
   tr {
     page-break-inside: avoid;
     page-break-after: auto;
+  }
+  
+  h1, h2, h3 {
+    page-break-after: avoid;
   }
 }
 .tr-catequistas td:first-child {
