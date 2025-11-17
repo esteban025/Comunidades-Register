@@ -3,10 +3,11 @@ import FootTable from "../components/FootTable.astro";
 import HeadTable from "../components/HeadTable.astro";
 import NewBodyTable from "../components/NewBodyTable.astro";
 import Titles from "../components/Titles.astro";
+import { CasasConvivencia, ParroquiaSlug } from "../lib/comunidadesData";
 import { generarFiltrosHospedaje } from "../lib/comunidadesQueries.ts";
 
 // Obtener los filtros ya procesados con toda la lógica encapsulada
-const dataFilters = generarFiltrosHospedaje();
+const dataFilters = generarFiltrosHospedaje(CasasConvivencia.sumbahuaico);
 ---
 
 <section class="flex flex-col gap-10">

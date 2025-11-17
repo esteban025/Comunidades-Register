@@ -69,8 +69,8 @@ export const catequistasData = [
   },
   {
     nombres: "Felipe",
-    tipo: "matrimonio",
-    observaciones: "",
+    tipo: "soltero",
+    observaciones: "Habitación matrimonial",
     hospedaje: CasasConvivencia.sumbahuaico 
   },
 ]

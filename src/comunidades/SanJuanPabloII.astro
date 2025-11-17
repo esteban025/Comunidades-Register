@@ -4,26 +4,22 @@ import HeadTable from "../components/HeadTable.astro";
 import NewBodyTable from "../components/NewBodyTable.astro";
 import Titles from "../components/Titles.astro";
 import { ParroquiaSlug } from "../lib/comunidadesData";
-import {
-  getAllHermanos,
-  getComunidadesByParroquia,
-} from "../lib/comunidadesQueries.ts";
+import { getDataParroquia } from "../lib/comunidadesQueries.ts";
 const nameParroquia = ParroquiaSlug.sanJuanPabloII;
-const comunidades = getComunidadesByParroquia(nameParroquia);
-const allHermanosParroquia = getAllHermanos(nameParroquia);
+const data = getDataParroquia(nameParroquia);
 ---
 
 <section>
-  <Titles typeTitle="h2" title={nameParroquia} />
+  <Titles typeTitle="h2" title={data.nombre} />
   <table class="table-data">
     <HeadTable />
-    <NewBodyTable hermanos={allHermanosParroquia} />
+    <NewBodyTable hermanos={data.hermanos} />
     <FootTable
       totals={{
-        totalMatrimonios: comunidades.totalMatrimonios,
-        totalSolteros: comunidades.totalSolteros,
-        totalSolteras: comunidades.totalSolteras,
-        totalHermanos: comunidades.totalHermanos,
+        totalMatrimonios: data.totalMatrimonios,
+        totalSolteros: data.totalSolteros,
+        totalSolteras: data.totalSolteras,
+        totalHermanos: data.totalHermanos,
       }}
     />
   </table>
