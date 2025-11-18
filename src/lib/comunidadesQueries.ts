@@ -347,7 +347,7 @@ export const agregarDidascalasYGuardia = (listaHermanos: HermanoFiltrado[]): Her
 
 /**
  * Genera los filtros de hospedaje para la vista de filtros
- * Incluye automáticamente catequistas en Sumbahuaico y didascalas/guardia en Seminario
+ * Incluye automáticamente catequistas en Zumbahuayco y didascalas/guardia en Seminario
  * @param hospedaje - Opcional: Casa de convivencia específica. Si no se pasa, devuelve todos los hospedajes
  * @param parroquia - Opcional: Parroquia específica. Si no se pasa, devuelve todas las parroquias
  * @returns Array de objetos con título y lista de hermanos filtrados
@@ -397,19 +397,19 @@ export const generarFiltrosHospedaje = (
     };
   };
 
-  // Filtro para Sumbahuaico con catequistas
-  const filtroSumbahuaico = (): DataFilter => {
-    const hermanosSumbahuaico = getHermanosByHospedaje(
+  // Filtro para Zumbahuayco con catequistas
+  const filtroZumbahuayco = (): DataFilter => {
+    const hermanosZumbahuayco = getHermanosByHospedaje(
       parroquiaFiltro,
-      CasasConvivencia.sumbahuaico
+      CasasConvivencia.zumbahuayco
     );
     // Solo agregar catequistas si es "todas las parroquias"
-    const listaSumbahuaico = parroquiaFiltro === ParroquiaSlug.todas
-      ? agregarCatequistas(hermanosSumbahuaico)
-      : hermanosSumbahuaico;
+    const listaZumbahuayco = parroquiaFiltro === ParroquiaSlug.todas
+      ? agregarCatequistas(hermanosZumbahuayco)
+      : hermanosZumbahuayco;
     return {
-      title: generarTitulo(CasasConvivencia.sumbahuaico),
-      list: listaSumbahuaico,
+      title: generarTitulo(CasasConvivencia.zumbahuayco),
+      list: listaZumbahuayco,
       nota: "Al hermanos Felipe se le asignará una habitacion matrimonial en el 1° piso.",
     };
   };
@@ -433,8 +433,8 @@ export const generarFiltrosHospedaje = (
         return [filtroSeminario()];
       case CasasConvivencia.casaBetania:
         return [filtroCasaBetania()];
-      case CasasConvivencia.sumbahuaico:
-        return [filtroSumbahuaico()];
+      case CasasConvivencia.zumbahuayco:
+        return [filtroZumbahuayco()];
       case CasasConvivencia.quintaLeonor:
         return [filtroQuintaLeonor()];
       default:
@@ -446,7 +446,7 @@ export const generarFiltrosHospedaje = (
   return [
     filtroSeminario(),
     filtroCasaBetania(),
-    filtroSumbahuaico(),
+    filtroZumbahuayco(),
     filtroQuintaLeonor(),
   ];
 };
