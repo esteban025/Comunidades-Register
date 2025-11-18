@@ -44,7 +44,7 @@ export enum CasasConvivencia {
   seminario = "Seminario",
   casaBetania = "Casa Betania",
   quintaLeonor = "Quinta Leonor",
-  sumbahuaico = "Sumbahuaico",
+  sumbahuaico = "Zumbahuayco",
   none = "Ninguno"
 } 
 
@@ -292,10 +292,10 @@ export const allComunidades: Comunidad[] = [
       { nombres: "Marcial y Bety", observaciones: "", hospedaje: CasasConvivencia.casaBetania }
     ],
     solteros: [
-      { nombres: "Carlitos", observaciones: "", hospedaje: CasasConvivencia.sumbahuaico }
+      { nombres: "Carlitos Méndez", observaciones: "", hospedaje: CasasConvivencia.sumbahuaico }
     ],
     solteras: [
-      { nombres: "Mayte", observaciones: "", hospedaje: CasasConvivencia.seminario }
+      { nombres: "Mayte Nuñez", observaciones: "", hospedaje: CasasConvivencia.seminario }
     ]
   },
   {
