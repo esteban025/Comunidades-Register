@@ -1,9 +1,21 @@
 ---
 interface Props {
-  typeHead?: "general" | "resume" | "filters" | "catequistas";
+  typeHead?:
+    | "general"
+    | "resume"
+    | "filters"
+    | "catequistas"
+    | "filterHospedaje";
 }
 const headTable = ["N° Com", "tipo", "nombres", "Observaciones", "Lugar Conv."];
 const headFilters = ["N° Com", "Parroquia", "Tipo", "Nombres", "Hospedaje"];
+const headFiltersHospedaje = [
+  "N° Com",
+  "Parroquia",
+  "Tipo",
+  "Nombres",
+  "N° Habit",
+];
 
 const headCatequistas = ["Nombres", "Tipo", "Observaciones", "Hospedaje"];
 
@@ -44,6 +56,16 @@ const { typeHead = "general" } = Astro.props;
     <thead>
       <tr>
         {headCatequistas.map((header) => (
+          <th class="bg-sky-600 text-white p-1.5 text-start text-xs font-medium capitalize truncate">
+            {header}
+          </th>
+        ))}
+      </tr>
+    </thead>
+  ) : typeHead === "filterHospedaje" ? (
+    <thead>
+      <tr>
+        {headFiltersHospedaje.map((header) => (
           <th class="bg-sky-600 text-white p-1.5 text-start text-xs font-medium capitalize truncate">
             {header}
           </th>

@@ -202,7 +202,7 @@ export const allComunidades: Comunidad[] = [
     numComunidad: 5,
     matrimonios: [
       { nombres: "Fabian Sinchi y Rosana Sinchi", observaciones: "", hospedaje: CasasConvivencia.seminario },
-      { nombres: "Nelson Sacta y Veronica Muy", observaciones: "", hospedaje: CasasConvivencia.seminario }
+      { nombres: "Nelson Sacta y Veronica Muy", observaciones: "", hospedaje: CasasConvivencia.casaBetania }
     ],
     solteros: [],
     solteras: [
@@ -254,7 +254,7 @@ export const allComunidades: Comunidad[] = [
     solteros: [],
     solteras: [
       { nombres: "Giselle Otavalo", observaciones: "", hospedaje: CasasConvivencia.casaBetania },
-      { nombres: "Yolanda Guachichullca", observaciones: "", hospedaje: CasasConvivencia.seminario }
+      { nombres: "Yolanda Guachichullca", observaciones: "", hospedaje: CasasConvivencia.casaBetania }
     ]
   },
   {
@@ -266,7 +266,7 @@ export const allComunidades: Comunidad[] = [
     ],
     solteros: [],
     solteras: [
-      { nombres: "Salomé Cabrera", observaciones: "", hospedaje: CasasConvivencia.seminario }
+      { nombres: "Salomé Cabrera", observaciones: "", hospedaje: CasasConvivencia.casaBetania }
     ]
   },
   {
@@ -281,7 +281,7 @@ export const allComunidades: Comunidad[] = [
       { nombres: "Paul Arevalo", observaciones: "", hospedaje: CasasConvivencia.sumbahuaico }
     ],
     solteras: [
-      { nombres: "EstefanÍa", observaciones: "", hospedaje: CasasConvivencia.seminario }
+      { nombres: "EstefanÍa", observaciones: "", hospedaje: CasasConvivencia.casaBetania }
     ]
   },
   {
@@ -366,10 +366,10 @@ export const allComunidades: Comunidad[] = [
     parroquia: ParroquiaSlug.monay,
     numComunidad: 1,
     matrimonios: [
-      { nombres: "Carlos Quille y Lourdes Guaman", observaciones: "Adultos y 1 niña", hospedaje: CasasConvivencia.seminario },
+      { nombres: "Carlos Quille y Lourdes Guaman", observaciones: "1 niña", hospedaje: CasasConvivencia.seminario },
     ],
     solteros: [
-      { nombres: "José Santos", observaciones: "Adulto", hospedaje: CasasConvivencia.sumbahuaico },
+      { nombres: "José Santos", observaciones: "", hospedaje: CasasConvivencia.casaBetania },
       { nombres: "David Torres", observaciones: "", hospedaje: CasasConvivencia.sumbahuaico },
     ],
     solteras: [

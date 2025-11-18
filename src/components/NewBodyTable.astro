@@ -14,6 +14,13 @@ interface ComunidadFilters {
   nombres: string;
   hospedaje: string;
 }
+interface HospedajeFilters {
+  numComunidad: number;
+  parroquia: string;
+  tipo: string;
+  nombres: string;
+  numHabit: string;
+}
 
 interface Catequistas {
   nombres: string;
@@ -36,8 +43,9 @@ interface Props {
   filtersComus?: ComunidadFilters[];
   catequistas?: Catequistas[];
   resumenComus?: ResumenComus[];
+  filtersHospedaje?: HospedajeFilters[];
 }
-const { hermanos, filtersComus, catequistas, resumenComus } =
+const { hermanos, filtersComus, catequistas, resumenComus, filtersHospedaje } =
   Astro.props as Props;
 
 // Generar un ID único para este tbody
@@ -85,6 +93,30 @@ const tableId = `tbody-${Math.random().toString(36).substr(2, 9)}`;
           <td>{hermano.tipo}</td>
           <td>{hermano.nombres}</td>
           <td>{hermano.hospedaje}</td>
+        </tr>
+      ))
+  }
+  {
+    filtersHospedaje &&
+      filtersHospedaje?.map((hermano) => (
+        <tr class="tr-filters-hospedaje">
+          <td
+            class={`td-${hermano.numComunidad}`}
+            data-comunidad={hermano.numComunidad}
+            data-parroquia={hermano.parroquia}
+          >
+            {hermano.numComunidad}
+          </td>
+          <td
+            class={`tdparroquia-${hermano.numComunidad}`}
+            data-parroquia={hermano.parroquia}
+            data-comunidad={hermano.numComunidad}
+          >
+            {hermano.parroquia}
+          </td>
+          <td>{hermano.tipo}</td>
+          <td>{hermano.nombres}</td>
+          <td class={`td-numHabit`}>{hermano.numHabit}</td>
         </tr>
       ))
   }
@@ -279,13 +311,13 @@ const tableId = `tbody-${Math.random().toString(36).substr(2, 9)}`;
       width: 20%;
     }
     & td:nth-child(3) {
-      width: 30%;
+      width: 15%;
     }
     & td:nth-child(4) {
-      width: 25%;
+      width: 30%;
     }
     & td:nth-child(5) {
-      width: 25%;
+      width: 20%;
     }
   }
   & tr:nth-child(even) {
@@ -299,6 +331,15 @@ const tableId = `tbody-${Math.random().toString(36).substr(2, 9)}`;
     padding: 4px 6px;
     border: 1px solid var(--color-border);
     /* vertical-align: top; */
+  }
+
+  .tr-filters-hospedaje {
+    & td:first-child {
+      width: 1%;
+    }
+    & .td-numHabit {
+      width: 1%;
+    }
   }
 
   .tr-catequistas td:first-child {

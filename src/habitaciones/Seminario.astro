@@ -1,13 +1,12 @@
 ---
-import FootTable from "../components/FootTable.astro";
+import Titles from "../components/Titles.astro";
+import { CasasConvivencia } from "../lib/comunidadesData";
+import { generarFiltrosHabitaciones } from "../lib/comunidadesQueries.ts";
 import HeadTable from "../components/HeadTable.astro";
 import NewBodyTable from "../components/NewBodyTable.astro";
-import Titles from "../components/Titles.astro";
-import { CasasConvivencia, ParroquiaSlug } from "../lib/comunidadesData";
-import { generarFiltrosHospedaje } from "../lib/comunidadesQueries.ts";
+import FootTable from "../components/FootTable.astro";
 
-// Obtener los filtros ya procesados con toda la lógica encapsulada
-const dataFilters = generarFiltrosHospedaje(CasasConvivencia.sumbahuaico);
+const dataFilters = generarFiltrosHabitaciones(CasasConvivencia.seminario);
 ---
 
 <section class="flex flex-col gap-10">
@@ -16,8 +15,8 @@ const dataFilters = generarFiltrosHospedaje(CasasConvivencia.sumbahuaico);
       <section>
         <Titles typeTitle="h2" title={fil.title} />
         <table class="table-data">
-          <HeadTable typeHead="filters" />
-          <NewBodyTable filtersComus={fil.list} />
+          <HeadTable typeHead="filterHospedaje" />
+          <NewBodyTable filtersHospedaje={fil.list} />
           <FootTable totalsFilters={fil.list} />
         </table>
         {fil.nota && (

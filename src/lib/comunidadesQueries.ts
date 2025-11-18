@@ -10,9 +10,23 @@ export interface HermanoFiltrado {
   hospedaje: string;
 }
 
+export interface HermanoHospedaje {
+  numComunidad: number;
+  parroquia: string;
+  tipo: string;
+  nombres: string;
+  numHabit: string;
+}
+
 export interface DataFilter {
   title: string;
   list: HermanoFiltrado[];
+  nota?: string;
+}
+
+export interface DataFilterHospedaje {
+  title: string;
+  list: HermanoHospedaje[];
   nota?: string;
 }
 
@@ -113,6 +127,8 @@ export const getHermanosByHospedaje = (nombreParroquia = "Todas las Parroquias",
     nombres: string;
     hospedaje: string;
   }> = [];
+
+  comunidadesFiltradas.sort((a, b) => a.numComunidad - b.numComunidad);
 
   comunidadesFiltradas.forEach(comunidad => {
     // Agregar matrimonios que coincidan con el hospedaje
@@ -341,6 +357,17 @@ export const generarFiltrosHospedaje = (
   parroquia?: ParroquiaSlug
 ): DataFilter[] => {
   const parroquiaFiltro = parroquia || ParroquiaSlug.todas;
+  
+  // Helper para generar el título según los parámetros
+  const generarTitulo = (casaConvivencia: CasasConvivencia): string => {
+    if (parroquia) {
+      // Si se pasó parroquia específica, mostrar: "Parroquia - Casa"
+      return `${parroquiaFiltro} - ${casaConvivencia}`;
+    } else {
+      // Si no se pasó parroquia, mostrar solo: "Casa"
+      return casaConvivencia;
+    }
+  };
 
   // Filtro para Seminario con didascalas y guardia
   const filtroSeminario = (): DataFilter => {
@@ -353,7 +380,7 @@ export const generarFiltrosHospedaje = (
       ? agregarDidascalasYGuardia(hermanosSeminario)
       : hermanosSeminario;
     return {
-      title: `${parroquiaFiltro} - ${CasasConvivencia.seminario}`,
+      title: generarTitulo(CasasConvivencia.seminario),
       list: listaSeminario,
     };
   };
@@ -365,7 +392,7 @@ export const generarFiltrosHospedaje = (
       CasasConvivencia.casaBetania
     );
     return {
-      title: `${parroquiaFiltro} - ${CasasConvivencia.casaBetania}`,
+      title: generarTitulo(CasasConvivencia.casaBetania),
       list: hermanosCasaBetania,
     };
   };
@@ -381,9 +408,9 @@ export const generarFiltrosHospedaje = (
       ? agregarCatequistas(hermanosSumbahuaico)
       : hermanosSumbahuaico;
     return {
-      title: `${parroquiaFiltro} - ${CasasConvivencia.sumbahuaico}`,
+      title: generarTitulo(CasasConvivencia.sumbahuaico),
       list: listaSumbahuaico,
-      nota: "Al hermanos Felipe se le asignará una habitacion matrimonial.",
+      nota: "Al hermanos Felipe se le asignará una habitacion matrimonial en el 1° piso.",
     };
   };
 
@@ -394,7 +421,7 @@ export const generarFiltrosHospedaje = (
       CasasConvivencia.quintaLeonor
     );
     return {
-      title: `${parroquiaFiltro} - ${CasasConvivencia.quintaLeonor}`,
+      title: generarTitulo(CasasConvivencia.quintaLeonor),
       list: hermanosQuintaLeonor,
     };
   };
@@ -422,6 +449,32 @@ export const generarFiltrosHospedaje = (
     filtroSumbahuaico(),
     filtroQuintaLeonor(),
   ];
+};
+
+/**
+ * Genera filtros para vista de habitaciones (sin hospedaje, con numHabit)
+ * Transforma la lista eliminando hospedaje y agregando numHabit vacío
+ * @param hospedaje - Opcional: Casa de convivencia específica
+ * @param parroquia - Opcional: Parroquia específica
+ * @returns Array de filtros adaptados para gestión de habitaciones
+ */
+export const generarFiltrosHabitaciones = (
+  hospedaje?: CasasConvivencia,
+  parroquia?: ParroquiaSlug
+): DataFilterHospedaje[] => {
+  const filtrosOriginales = generarFiltrosHospedaje(hospedaje, parroquia);
+
+  return filtrosOriginales.map((filtro) => ({
+    title: filtro.title,
+    nota: filtro.nota,
+    list: filtro.list.map((hermano) => ({
+      numComunidad: hermano.numComunidad,
+      parroquia: hermano.parroquia,
+      tipo: hermano.tipo,
+      nombres: hermano.nombres,
+      numHabit: "",
+    })),
+  }));
 };
 
 /**
