@@ -359,13 +359,16 @@ export const generarFiltrosHospedaje = (
   const parroquiaFiltro = parroquia || ParroquiaSlug.todas;
   
   // Helper para generar el título según los parámetros
-  const generarTitulo = (casaConvivencia: CasasConvivencia): string => {
-    if (parroquia) {
-      // Si se pasó parroquia específica, mostrar: "Parroquia - Casa"
+  const generarTitulo = (casaConvivencia?: CasasConvivencia): string => {
+    if (parroquia && casaConvivencia) {
+      // Si se pasó parroquia y casa específica, mostrar: "Parroquia - Casa"
       return `${parroquiaFiltro} - ${casaConvivencia}`;
+    } else if (parroquia && !casaConvivencia) {
+      // Si solo se pasó parroquia, mostrar solo la parroquia
+      return `${parroquiaFiltro}`;
     } else {
       // Si no se pasó parroquia, mostrar solo: "Casa"
-      return casaConvivencia;
+      return casaConvivencia || "";
     }
   };
 
@@ -410,44 +413,87 @@ export const generarFiltrosHospedaje = (
     return {
       title: generarTitulo(CasasConvivencia.zumbahuayco),
       list: listaZumbahuayco,
-      nota: "Al hermanos Felipe se le asignará una habitacion matrimonial en el 1° piso.",
+      nota: "Al hermano Felipe Moreno se le asignará una habitacion matrimonial en el 1° piso.",
     };
   };
 
-  // Filtro para Quinta Leonor
-  const filtroQuintaLeonor = (): DataFilter => {
-    const hermanosQuintaLeonor = getHermanosByHospedaje(
-      parroquiaFiltro,
-      CasasConvivencia.quintaLeonor
-    );
-    return {
-      title: generarTitulo(CasasConvivencia.quintaLeonor),
-      list: hermanosQuintaLeonor,
-    };
-  };
+  // Filtro para Quinta Leonor (comentado por ahora)
+  // const filtroQuintaLeonor = (): DataFilter => {
+  //   const hermanosQuintaLeonor = getHermanosByHospedaje(
+  //     parroquiaFiltro,
+  //     CasasConvivencia.quintaLeonor
+  //   );
+  //   return {
+  //     title: generarTitulo(CasasConvivencia.quintaLeonor),
+  //     list: hermanosQuintaLeonor,
+  //   };
+  // };
 
   // Si se especifica un hospedaje, devolver solo ese filtro
   if (hospedaje) {
-    switch (hospedaje) {
-      case CasasConvivencia.seminario:
-        return [filtroSeminario()];
-      case CasasConvivencia.casaBetania:
-        return [filtroCasaBetania()];
-      case CasasConvivencia.zumbahuayco:
-        return [filtroZumbahuayco()];
-      case CasasConvivencia.quintaLeonor:
-        return [filtroQuintaLeonor()];
-      default:
-        return [];
+    // Si se pasó hospedaje específico
+    if (parroquia) {
+      // Hospedaje + Parroquia específica: 1 tabla filtrada
+      switch (hospedaje) {
+        case CasasConvivencia.seminario:
+          return [filtroSeminario()];
+        case CasasConvivencia.casaBetania:
+          return [filtroCasaBetania()];
+        case CasasConvivencia.zumbahuayco:
+          return [filtroZumbahuayco()];
+        // case CasasConvivencia.quintaLeonor:
+        //   return [filtroQuintaLeonor()];
+        default:
+          return [];
+      }
+    } else {
+      // Solo hospedaje, todas las parroquias: 1 tabla por parroquia
+      const parroquiasActivas = [
+        ParroquiaSlug.sanPablo,
+        ParroquiaSlug.sanJuanPabloII,
+        ParroquiaSlug.carmenGuzho,
+        ParroquiaSlug.quitachica,
+        ParroquiaSlug.monay,
+        ParroquiaSlug.ricaurte,
+      ];
+
+      return parroquiasActivas.map((parr) => {
+        const hermanos = getHermanosByHospedaje(parr, hospedaje);
+        return {
+          title: `${parr} - ${hospedaje}`,
+          list: hermanos,
+        };
+      }).filter(filtro => filtro.list.length > 0); // Solo incluir parroquias con hermanos
     }
   }
 
-  // Si no se especifica, devolver todos los filtros
+  // Si se especificó parroquia pero no hospedaje, devolver una sola lista combinada
+  if (parroquia) {
+    const seminario = filtroSeminario();
+    const casaBetania = filtroCasaBetania();
+    const zumbahuayco = filtroZumbahuayco();
+
+    // Combinar todas las listas en una sola
+    const listaCombinada: HermanoFiltrado[] = [
+      ...seminario.list,
+      ...casaBetania.list,
+      ...zumbahuayco.list,
+    ];
+
+    return [
+      {
+        title: generarTitulo(),
+        list: listaCombinada,
+      },
+    ];
+  }
+
+  // Si no se especificó nada (todas las casas), devolver tablas separadas por casa
   return [
     filtroSeminario(),
     filtroCasaBetania(),
     filtroZumbahuayco(),
-    filtroQuintaLeonor(),
+    // filtroQuintaLeonor(), // Descomentar cuando se necesite
   ];
 };
 

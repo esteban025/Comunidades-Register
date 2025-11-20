@@ -6,15 +6,17 @@ import Titles from "../components/Titles.astro";
 import { CasasConvivencia, ParroquiaSlug } from "../lib/comunidadesData";
 import { generarFiltrosHospedaje } from "../lib/comunidadesQueries.ts";
 
-// Obtener los filtros ya procesados con toda la lógica encapsulada
-const dataFilters = generarFiltrosHospedaje(CasasConvivencia.zumbahuayco);
+// filtro () --> devuelve todas las casas de convivencia
+// filtro (seminario - monay)
+// filtro (seminario)
+// filtro (undefined , seminario)
+const dataFilters = generarFiltrosHospedaje(undefined, ParroquiaSlug.todas);
 ---
 
 <section class="flex flex-col gap-10">
   {
     dataFilters.map((fil) => (
       <section>
-        <br />
         <Titles typeTitle="h2" title={fil.title} />
         <table class="table-data">
           <HeadTable typeHead="filters" />

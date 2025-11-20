@@ -68,7 +68,7 @@ export const catequistasData = [
     hospedaje: CasasConvivencia.zumbahuayco 
   },
   {
-    nombres: "Felipe",
+    nombres: "Felipe Moreno",
     tipo: "soltero",
     observaciones: "Habitación matrimonial",
     hospedaje: CasasConvivencia.zumbahuayco 
@@ -118,7 +118,7 @@ export const allComunidades: Comunidad[] = [
     ],
     solteros: [],
     solteras: [
-      { nombres: "Mirian Neira", observaciones: "", hospedaje: CasasConvivencia.zumbahuayco }
+      { nombres: "Miriam Neira", observaciones: "", hospedaje: CasasConvivencia.zumbahuayco }
     ]
   },
   {
@@ -126,7 +126,9 @@ export const allComunidades: Comunidad[] = [
     numComunidad: 7,
     matrimonios: [
       { nombres: "Andrés Ortiz y Carla Zúñiga", observaciones: "Embarazada - 1° piso", hospedaje: CasasConvivencia.seminario },
-      { nombres: "Juan Narváez y María Fernanda Vidal", observaciones: "", hospedaje: CasasConvivencia.zumbahuayco }
+      { nombres: "Juan Narváez y María Fernanda Vidal", observaciones: "", hospedaje: CasasConvivencia.zumbahuayco },
+      { nombres: "Marco Vásquez y Eulalia Padrón", observaciones: "", hospedaje: CasasConvivencia.casaBetania }
+      
     ],
     solteros: [],
     solteras: []
@@ -289,7 +291,6 @@ export const allComunidades: Comunidad[] = [
     numComunidad: 18,
     matrimonios: [
       { nombres: "Marco y María", observaciones: "", hospedaje: CasasConvivencia.casaBetania },
-      { nombres: "Marcial y Bety", observaciones: "", hospedaje: CasasConvivencia.casaBetania }
     ],
     solteros: [
       { nombres: "Carlitos Méndez", observaciones: "", hospedaje: CasasConvivencia.zumbahuayco }
@@ -420,7 +421,10 @@ export const allComunidades: Comunidad[] = [
   {
     parroquia: ParroquiaSlug.carmenGuzho,
     numComunidad: 3,
-    matrimonios: [],
+    matrimonios: [
+      { nombres: "Christian  Yunga y esposa", observaciones: "", hospedaje: CasasConvivencia.zumbahuayco }
+
+    ],
     solteros: [
       { nombres: "Juan P. Yupanqui", observaciones: "", hospedaje: CasasConvivencia.zumbahuayco }
     ],
@@ -443,10 +447,11 @@ export const allComunidades: Comunidad[] = [
     parroquia: ParroquiaSlug.sanJuanPabloII,
     numComunidad: 17,
     matrimonios: [],
-    solteros: [],
+    solteros: [
+      { nombres: "Jhonny Pacurucu", observaciones: "", hospedaje: CasasConvivencia.seminario }
+    ],
     solteras: [
-      { nombres: "Mónica Ortega", observaciones: "", hospedaje: CasasConvivencia.seminario },
-      { nombres: "Natalia Lasso", observaciones: "", hospedaje: CasasConvivencia.seminario }
+      { nombres: "Mónica Ortega", observaciones: "", hospedaje: CasasConvivencia.casaBetania },
     ]
   },
   {
