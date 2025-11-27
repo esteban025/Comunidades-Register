@@ -192,7 +192,9 @@ export const allComunidades: Comunidad[] = [
     parroquia: ParroquiaSlug.sanPablo,
     numComunidad: 12,
     matrimonios: [
-      { nombres: "Diego Roldán y Jenny Matute", observaciones: "", hospedaje: CasasConvivencia.zumbahuayco }
+      { nombres: "Diego Roldán y Jenny Matute", observaciones: "", hospedaje: CasasConvivencia.zumbahuayco },
+      { nombres: "Santiago Espinoza y Diana Santander", observaciones: "", hospedaje: CasasConvivencia.casaBetania },
+      { nombres: "Jonathan Matute y Eliana Molina", observaciones: "", hospedaje: CasasConvivencia.casaBetania }
     ],
     solteros: [
       { nombres: "Emilia Cordero", observaciones: "", hospedaje: CasasConvivencia.zumbahuayco }
@@ -200,10 +202,19 @@ export const allComunidades: Comunidad[] = [
     solteras: []
   },
   {
+    parroquia: ParroquiaSlug.sanPablo,
+    numComunidad: 6,
+    matrimonios: [
+      { nombres: "Alex Ávila y Eugenia", observaciones: "", hospedaje: CasasConvivencia.seminario },
+    ],
+    solteros: [
+    ],
+    solteras: []
+  },
+  {
     parroquia: ParroquiaSlug.sanJuanPabloII,
     numComunidad: 5,
     matrimonios: [
-      { nombres: "Fabian Sinchi y Rosana Sinchi", observaciones: "", hospedaje: CasasConvivencia.seminario },
       { nombres: "Nelson Sacta y Veronica Muy", observaciones: "", hospedaje: CasasConvivencia.casaBetania }
     ],
     solteros: [],
@@ -223,7 +234,6 @@ export const allComunidades: Comunidad[] = [
     ],
     solteras: [
       { nombres: "Martha León", observaciones: "1 bebé", hospedaje: CasasConvivencia.seminario },
-      { nombres: "Mishelle Peralta", observaciones: "", hospedaje: CasasConvivencia.casaBetania }
     ]
   },
   {
@@ -290,10 +300,10 @@ export const allComunidades: Comunidad[] = [
     parroquia: ParroquiaSlug.sanJuanPabloII,
     numComunidad: 18,
     matrimonios: [
-      { nombres: "Marco y María", observaciones: "", hospedaje: CasasConvivencia.casaBetania },
+      { nombres: "Marco Chitacapa y María Álvarez", observaciones: "", hospedaje: CasasConvivencia.casaBetania },
     ],
     solteros: [
-      { nombres: "Carlitos Méndez", observaciones: "", hospedaje: CasasConvivencia.zumbahuayco }
+      { nombres: "Carlos Méndez", observaciones: "", hospedaje: CasasConvivencia.zumbahuayco }
     ],
     solteras: [
       { nombres: "Mayte Nuñez", observaciones: "", hospedaje: CasasConvivencia.seminario }
@@ -324,7 +334,7 @@ export const allComunidades: Comunidad[] = [
     numComunidad: 2,
     matrimonios: [
       { nombres: "Claudio Duchi y Nancy Munoz", observaciones: "Todos no tienen transporte de tralado", hospedaje: CasasConvivencia.casaBetania },
-      { nombres: "Narcisa Mora y Alex Cano", observaciones: "", hospedaje: CasasConvivencia.seminario }
+      { nombres: "Alex Cano y Narcisa Mora", observaciones: "", hospedaje: CasasConvivencia.seminario }
     ],
     solteros: [
       { nombres: "Daniel Morocho", observaciones: "", hospedaje: CasasConvivencia.zumbahuayco }
@@ -349,7 +359,9 @@ export const allComunidades: Comunidad[] = [
       { nombres: "Xavier Domínguez y Maria Huachichullca", observaciones: "1 bebe", hospedaje: CasasConvivencia.seminario },
     ],
     solteros: [],
-    solteras: []
+    solteras: [
+    { nombres: "Verónica Bacuilima", observaciones: "", hospedaje: CasasConvivencia.seminario },
+    ]
   },
   {
     parroquia: ParroquiaSlug.sanJuanPabloII,
@@ -370,7 +382,6 @@ export const allComunidades: Comunidad[] = [
       { nombres: "Carlos Quille y Lourdes Guaman", observaciones: "1 niña", hospedaje: CasasConvivencia.seminario },
     ],
     solteros: [
-      { nombres: "José Santos", observaciones: "", hospedaje: CasasConvivencia.casaBetania },
       { nombres: "David Torres", observaciones: "", hospedaje: CasasConvivencia.zumbahuayco },
     ],
     solteras: [
@@ -422,7 +433,7 @@ export const allComunidades: Comunidad[] = [
     parroquia: ParroquiaSlug.carmenGuzho,
     numComunidad: 3,
     matrimonios: [
-      { nombres: "Christian  Yunga y esposa", observaciones: "", hospedaje: CasasConvivencia.zumbahuayco }
+      { nombres: "Christian  Yunga y Maria Carchipulla", observaciones: "", hospedaje: CasasConvivencia.casaBetania }
 
     ],
     solteros: [
@@ -440,7 +451,8 @@ export const allComunidades: Comunidad[] = [
       { nombres: "Rubén Guzhñay", observaciones: "", hospedaje: CasasConvivencia.seminario }
     ],
     solteras: [
-      { nombres: "Liz Faicán", observaciones: "problemas de salud", hospedaje: CasasConvivencia.seminario }
+      { nombres: "Liz Faicán", observaciones: "problemas de salud", hospedaje: CasasConvivencia.seminario },
+      { nombres: "Carmen Pérez", observaciones: "problemas de salud", hospedaje: CasasConvivencia.seminario }
     ]
   },
   {

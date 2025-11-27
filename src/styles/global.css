@@ -14,7 +14,7 @@
 table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 12px;
+  font-size: 13px;
 }
 
 /* Estilos para impresión */
@@ -41,7 +41,7 @@ table {
   tfoot {
     display: table-row-group;
     page-break-before: auto;
-    page-break-after: avoid;
+    /* page-break-after: avoid; */
   }
   
   tr {

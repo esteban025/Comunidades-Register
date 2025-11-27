@@ -382,6 +382,8 @@ export const generarFiltrosHospedaje = (
     const listaSeminario = parroquiaFiltro === ParroquiaSlug.todas 
       ? agregarDidascalasYGuardia(hermanosSeminario)
       : hermanosSeminario;
+    // Ordenar por número de comunidad
+    listaSeminario.sort((a, b) => a.numComunidad - b.numComunidad);
     return {
       title: generarTitulo(CasasConvivencia.seminario),
       list: listaSeminario,
@@ -394,6 +396,8 @@ export const generarFiltrosHospedaje = (
       parroquiaFiltro,
       CasasConvivencia.casaBetania
     );
+    // Ordenar por número de comunidad
+    hermanosCasaBetania.sort((a, b) => a.numComunidad - b.numComunidad);
     return {
       title: generarTitulo(CasasConvivencia.casaBetania),
       list: hermanosCasaBetania,
@@ -410,6 +414,8 @@ export const generarFiltrosHospedaje = (
     const listaZumbahuayco = parroquiaFiltro === ParroquiaSlug.todas
       ? agregarCatequistas(hermanosZumbahuayco)
       : hermanosZumbahuayco;
+    // Ordenar por número de comunidad
+    listaZumbahuayco.sort((a, b) => a.numComunidad - b.numComunidad);
     return {
       title: generarTitulo(CasasConvivencia.zumbahuayco),
       list: listaZumbahuayco,
@@ -447,23 +453,19 @@ export const generarFiltrosHospedaje = (
           return [];
       }
     } else {
-      // Solo hospedaje, todas las parroquias: 1 tabla por parroquia
-      const parroquiasActivas = [
-        ParroquiaSlug.sanPablo,
-        ParroquiaSlug.sanJuanPabloII,
-        ParroquiaSlug.carmenGuzho,
-        ParroquiaSlug.quitachica,
-        ParroquiaSlug.monay,
-        ParroquiaSlug.ricaurte,
-      ];
-
-      return parroquiasActivas.map((parr) => {
-        const hermanos = getHermanosByHospedaje(parr, hospedaje);
-        return {
-          title: `${parr} - ${hospedaje}`,
-          list: hermanos,
-        };
-      }).filter(filtro => filtro.list.length > 0); // Solo incluir parroquias con hermanos
+      // Solo hospedaje, todas las parroquias: 1 tabla con todas las parroquias combinadas
+      switch (hospedaje) {
+        case CasasConvivencia.seminario:
+          return [filtroSeminario()];
+        case CasasConvivencia.casaBetania:
+          return [filtroCasaBetania()];
+        case CasasConvivencia.zumbahuayco:
+          return [filtroZumbahuayco()];
+        // case CasasConvivencia.quintaLeonor:
+        //   return [filtroQuintaLeonor()];
+        default:
+          return [];
+      }
     }
   }
 
@@ -479,6 +481,9 @@ export const generarFiltrosHospedaje = (
       ...casaBetania.list,
       ...zumbahuayco.list,
     ];
+
+    // Ordenar la lista combinada por número de comunidad
+    listaCombinada.sort((a, b) => a.numComunidad - b.numComunidad);
 
     return [
       {

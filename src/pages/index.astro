@@ -18,20 +18,35 @@ import Seminario from "../habitaciones/Seminario.astro";
 
 // filters
 import SectionFilters from "../sections/SectionFilters.astro";
+import { ParroquiaSlug } from "../lib/comunidadesData";
+import { generarFiltrosHospedaje } from "../lib/comunidadesQueries";
+import { CasasConvivencia } from "../lib/comunidadesData";
+const dataGuzho = generarFiltrosHospedaje(undefined, ParroquiaSlug.carmenGuzho);
+const dataQuinta = generarFiltrosHospedaje(undefined, ParroquiaSlug.quitachica);
+const dataRicaurte = generarFiltrosHospedaje(undefined, ParroquiaSlug.ricaurte);
+const dataMonay = generarFiltrosHospedaje(undefined, ParroquiaSlug.monay);
+const dataSanPablo = generarFiltrosHospedaje(undefined, ParroquiaSlug.sanPablo);
+const dataSanJuan = generarFiltrosHospedaje(
+	undefined,
+	ParroquiaSlug.sanJuanPabloII,
+);
+// const dataCasaB = generarFiltrosHospedaje(CasasConvivencia.casaBetania);
+const dataTotal = generarFiltrosHospedaje();
 ---
 
 <Layout>
 	<Titles typeTitle="h1" title="Convivencia de Responsables- 2025" />
 	<main class="flex flex-col gap-10 mt-4">
-		<!-- <CarmenGuzho /> -->
-		<!-- <QuintaChica /> -->
-		<!-- <Ricaurte /> -->
-		<!-- <br /> -->
 		<!-- <Monay /> -->
-		<!-- <SanPablo /> -->
+		<SanPablo />
 		<!-- <SanJuanPabloII /> -->
 		<!-- <Catequistas /> -->
-		<SectionFilters />
+		<SectionFilters data={dataGuzho} />
+		<SectionFilters data={dataQuinta} />
+		<SectionFilters data={dataRicaurte} />
+		<SectionFilters data={dataSanPablo} />
+		<SectionFilters data={dataSanJuan} />
+		<SectionFilters data={dataMonay} />
 		<!-- <Seminario /> -->
 		<!-- <Resume /> -->
 	</main>

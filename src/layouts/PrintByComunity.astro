@@ -1,0 +1,76 @@
+---
+interface Props {
+  responsable: string;
+  parroquia: string;
+}
+const { responsable, parroquia } = Astro.props;
+---
+
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Carta de Cobro</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-gray-100 p-8 font-serif">
+    <div class="max-w-4xl mx-auto bg-white shadow-lg p-12">
+      <div class="text-right mb-10">
+        <p>Cuenca, 26 de noviembre de 2025</p>
+      </div>
+
+      <div class="mb-8">
+        <p class="mb-1">Hermano</p>
+        <p class="font-bold">{responsable}</p>
+        <p class="font-bold">
+          RESPONSIBLE DE LA PARROQUIA DE {parroquia.toUpperCase()}
+        </p>
+      </div>
+
+      <p class="mb-6">De mi consideración:</p>
+
+      <p class="text-justify mb-6">
+        A través de la presente solicito cancelar el valor pendiente de la
+        convivencia de transmisión de responsables del 20 al 23 de noviembre del
+        2025 que deberá ser cancelado máximo en 15 días.
+      </p>
+
+      <p class="mb-4">
+        Adjunto el detalle del valor de la deuda por comunidad:
+      </p>
+
+      <section
+        class="my-8 min-h-[300px] border-2 border-dashed border-gray-300 flex items-center justify-center text-gray-400"
+      >
+        <!-- Sección vacía para la tabla -->
+      </section>
+
+      <p class="mb-6">Sírvase depositar en la siguiente cuenta:</p>
+
+      <div class="mb-8">
+        <p class="font-bold">Banco del Pichincha</p>
+        <p><span class="font-bold">Cuenta de Ahorros N:</span> 2200675196</p>
+        <p><span class="font-bold">Nombre:</span> Marco López</p>
+        <p><span class="font-bold">CI:</span> 0102907029</p>
+      </div>
+
+      <p class="mb-12">
+        Seguro de contar con su apoyo, anticipo mi agradecimiento.
+      </p>
+
+      <div class="mt-16 mb-12">
+        <p>La paz</p>
+        <p class="font-bold">Rodrigo Salgado</p>
+        <p>CNC Cuenca</p>
+      </div>
+
+      <div class="mt-12">
+        <p>
+          <span class="font-bold">PD:</span> Enviar el comprobante de depósito al
+          número de <span class="font-bold">Marco López</span>, celular
+          <span class="font-bold">0994822876</span>
+        </p>
+      </div>
+    </div>
+  </body>
+</html>

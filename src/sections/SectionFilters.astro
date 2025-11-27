@@ -3,19 +3,23 @@ import FootTable from "../components/FootTable.astro";
 import HeadTable from "../components/HeadTable.astro";
 import NewBodyTable from "../components/NewBodyTable.astro";
 import Titles from "../components/Titles.astro";
-import { CasasConvivencia, ParroquiaSlug } from "../lib/comunidadesData";
-import { generarFiltrosHospedaje } from "../lib/comunidadesQueries.ts";
+import type { DataFilter } from "../lib/comunidadesQueries";
 
 // filtro () --> devuelve todas las casas de convivencia
 // filtro (seminario - monay)
 // filtro (seminario)
 // filtro (undefined , seminario)
-const dataFilters = generarFiltrosHospedaje(undefined, ParroquiaSlug.todas);
+// const dataFilters = generarFiltrosHospedaje(undefined, ParroquiaSlug.sanPablo);
+// const dataFilters = generarFiltrosHospedaje(CasasConvivencia.zumbahuayco);
+interface Props {
+  data: DataFilter[];
+}
+const { data } = Astro.props;
 ---
 
 <section class="flex flex-col gap-10">
   {
-    dataFilters.map((fil) => (
+    data.map((fil) => (
       <section>
         <Titles typeTitle="h2" title={fil.title} />
         <table class="table-data">
